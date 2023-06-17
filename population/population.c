@@ -4,19 +4,25 @@
 int main(void)
 {
     int start;
-    do
-    {
-        start = get_int("Start size: ");
-    }
-    while (start < 9);
+    printf("Enter the starting populatipn size (minimum 9): ");
+    scanf("%d", &start);
 
-    // TODO: Prompt for end size
-    int end;
-    do
-    {
-        end = get_int("End size: ");
+    while (start < 9) {
+        printf("Starting population size must be at least 9. Please enter again: ");
+        scanf("%d", &start_population);
     }
-    while (end < start);
+
+    printf("Enter the ending population size (must be greater than or equal to starting point size): ");
+    scanf("%d", &end);
+
+    while (end < start) {
+        printf("Ending population size must be greater than or equal to starting population size. Please enter again: ");
+        scanf("%d", &end);
+    }
+
+    while (start < end) {
+        
+    }
 
     int years = 0;
 
