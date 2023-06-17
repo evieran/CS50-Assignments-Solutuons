@@ -35,7 +35,7 @@ int main(void)
     }
 
     // Print the number of years required
-    print("Years: %i\n", years);
+    printf("Years: %i\n", years);
 
     return 0;
 }
