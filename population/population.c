@@ -3,7 +3,6 @@
 
 int main(void)
 {
-    // TODO: Prompt for start size
     int start;
     do
     {
