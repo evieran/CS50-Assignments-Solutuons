@@ -27,4 +27,6 @@ int main(void)
     }
 
     print("Years: %i\n", years);
+
+    return 0;
 }
