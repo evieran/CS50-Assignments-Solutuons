@@ -13,7 +13,7 @@ int main(void)
     while (start < 9)
     {
         printf("Starting population size must be at least 9. Please enter again: ");
-        scanf("%i", &start_population);
+        scanf("%i", &start);
     }
 
     // Prompt for ending population size
@@ -33,7 +33,7 @@ int main(void)
         start = start + (start / 3) - (start / 4);
         years++;
     }
-    
+
     // Print the number of years required
     print("Years: %i\n", years);
 
