@@ -5,15 +5,18 @@ int main(void)
 {
     int start, end, years = 0;
 
+    // Prompt for starting population size
     printf("Enter the starting populatipn size (minimum 9): ");
     scanf("%i", &start);
 
+    // Validate starting population size
     while (start < 9)
     {
         printf("Starting population size must be at least 9. Please enter again: ");
         scanf("%i", &start_population);
     }
 
+    // Prompt for ending population size
     printf("Enter the ending population size (must be greater than or equal to starting point size): ");
     scanf("%i", &end);
 
