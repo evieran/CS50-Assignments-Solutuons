@@ -13,7 +13,7 @@ int main(void)
     }
     while (height < 1 || height > 8);
 
-    // Build the left-aligned pyramid
+    // Build the right-aligned pyramid
     for (int row = 1; row <= height; row++)
     {
         // Print hashes; the number of hashes is equal to the row number
