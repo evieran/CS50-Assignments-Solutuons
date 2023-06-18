@@ -74,7 +74,29 @@ void blur(int height, int width, RGBTRIPLE image[height][width])
     {
         for (int j = 0; j < width; j++)
         {
-            // For each pixel, average the colors of pixels that are within a certain distance.
+            int count = 0;
+            int sumRed = 0;
+            int sumGreen = 0;
+            int sumBlue = 0;
+
+            // Calculate the sum of colors in the neighboring pixels
+            for (int k = -distance; k <= distance; k++)
+            {
+                for (int l = -distance; l <= distance; l++)
+                {
+                    int row = i + k;
+                    int col = j + l;
+
+                    // Check if the neighboring pixel is within the image boundaries
+                    if (row >= 0 && row < height && col >= 0 && col < width)
+                    {
+                        sumRed += temp[row][col].rgbtRed;
+                        sumGreen += temp[row][col].rgbtGreen;
+                        sumBlue += temp[row][col].rgbtBlue;
+                        count++;
+                    }
+                }
+            }
         }
     }
     return;
