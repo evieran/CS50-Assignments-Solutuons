@@ -70,6 +70,13 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
+    // Create a temporary copy of the image
+    RGBTRIPLE temp[height][width];
+    memcpy(temp, image, sizeof(RGBTRIPLE) * height * width);
+
+    // Define the distance for blurring
+    int distance = 1;
+
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
