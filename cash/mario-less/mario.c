@@ -4,7 +4,7 @@
 int main(void)
 {
     // Variable to stop the height of the pyramid
-    ints height;
+    int height;
 
     // Prompt the user for a positive integer between 1 and 8, inclusive
     do
