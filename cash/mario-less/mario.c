@@ -28,9 +28,10 @@ int main(void)
             printf("#");
         }
 
-      // Move to the next line after printing dots and hashes for the current row
-    printf("\n");
-  }
+        // Move to the next line after printing dots and hashes for the current row
+        printf("\n");
+
+    }
 
     return 0;
 }
