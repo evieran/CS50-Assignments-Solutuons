@@ -13,8 +13,22 @@ int main(void)
     }
     while (height < 1 || height > 8);
 
+    // Build the left-aligned pyramid
+    for (int row = 1; row <= height; row++)
+    {
+        // Print hashes; the number of hashes is equal to the row number
+        for (int hashes = 1; hashes <= row; hashes++)
+        {
+            printf("#");
+        }
+    
+
+    // Move to the next line after printing hashes for the current row
+    printf("\n");
+
     // Print the value of height to confirm it's stored successfully
     printf("Stored height: %d\n", height);
+}
 
     return 0;
 }
