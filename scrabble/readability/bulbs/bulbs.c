@@ -8,7 +8,26 @@ void print_bulb(int bit);
 
 int main(void)
 {
-    // TODO
+    // Prompt for input
+    string message = get_string("Enter a message: ");
+
+    // For each character in the message
+    for (int i = 0, n = strlen(message); i < n; i++)
+    {
+        // Convert character to ASCII value
+        int ascii_val = message[i];
+
+        // Convert ASCII value to binary and print bulbs
+        for (int j = BITS_IN_BYTE - 1; j >= 0; j--)
+        {
+            // Shift bits to the right and mask with 1 to get individual bits
+            int bit = (ascii_val >> j) & 1;
+            print_Bulb(bit);
+        }
+
+        // Print a newline to separate characters (bytes)
+        print ("\n");
+    }
 }
 
 void print_bulb(int bit)
