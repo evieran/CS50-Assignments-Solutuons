@@ -19,7 +19,7 @@ int main(void)
         // Print dots; the number of dots is height - row
         for (int dots = 1; dots <= height - row; dots++)
         {
-            printf(".");
+            printf(" ");
         }
 
         // Print hashes; the number of hashes is equal to the row number
