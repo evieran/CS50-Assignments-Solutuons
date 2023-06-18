@@ -16,13 +16,19 @@ int main(void)
     // Build the right-aligned pyramid
     for (int row = 1; row <= height; row++)
     {
+        // Print dots; the number of dots is height - row
+        for (int dots = 1; dots <= height - row; dots++)
+        {
+            printf(".");
+        }
+
         // Print hashes; the number of hashes is equal to the row number
         for (int hashes = 1; hashes <= row; hashes++)
         {
             printf("#");
         }
 
-    // Move to the next line after printing hashes for the current row
+    // Move to the next line after printing dots and hashes for the current row
     printf("\n");
 }
 
