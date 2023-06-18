@@ -15,7 +15,7 @@ int main(void)
     for (int i = 0, n = strlen(message); i < n; i++)
     {
         // Convert character to ASCII value
-        int ascii_val = message[i];
+        int ascii = (int) message[i];
 
         // Convert ASCII value to binary and print bulbs
         for (int j = BITS_IN_BYTE - 1; j >= 0; j--)
