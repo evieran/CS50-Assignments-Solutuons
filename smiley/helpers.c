@@ -3,7 +3,7 @@
 void colorize(int height, int width, RGBTRIPLE image[height][width])
 {
     // Iterate through each row
-    for (int i = 0; 1 < height; i++)
+    for (int i = 0; i < height; i++)
     {
         // Iterate through each pixel in the row
         for (int j = 0; j < width; j++)
