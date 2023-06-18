@@ -1,0 +1,35 @@
+Start
+
+Function Main
+    // Initialize height to 0
+    height = 0
+
+    // Prompt the user for the height of the pyramid
+    While height is less than 1 or hight is greater than 8
+     Prompt the user for height with message "Enter the height of the pyramid (1-8): "
+     Read height
+
+    // Call the function to build the pyramid
+    BuildPyramid(height)
+
+End Function
+
+FunctionBuildPyramid(height)
+    // For each row from 1 to height
+    For row = 1 to height
+      // Print spaces; The number of spaces is height - row
+      For spaces = 1 to height - row
+         Print " "
+
+      // Print hashes; The humber of hashes is equal to row
+      For hashes = 1 to row
+         Print "#"
+
+      // Move to the next line
+      Print new line
+
+    End for
+
+  End Function
+  
+  End
