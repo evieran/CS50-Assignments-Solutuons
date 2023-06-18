@@ -1,12 +1,16 @@
 #include <stdio.h>
 int main(void)
 {
-char name[100];
+    char name[100];
 
-printf("Enter your name: ");
-scanf("%s", name);
+    // Prompt the user to enter their name
+    printf("Enter your name: ");
 
-printf("Hello, %s!\n", name);
+    // Read the name input from the user and store it in the 'name' variable
+    scanf("%s", name);
 
-return 0;
+    // Print a personalized greeting using the entered name
+    printf("Hello, %s!\n", name);
+
+    return 0;
 }
