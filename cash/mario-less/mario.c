@@ -21,13 +21,9 @@ int main(void)
         {
             printf("#");
         }
-    
 
     // Move to the next line after printing hashes for the current row
     printf("\n");
-
-    // Print the value of height to confirm it's stored successfully
-    printf("Stored height: %d\n", height);
 }
 
     return 0;
