@@ -35,5 +35,22 @@ int main(void)
 
 int compute_score(string word)
 {
-    // TODO: Compute and return score for string
+    int score = 0;
+
+    // Iterate over each character in the input word
+    for (int i = 0, n = strlen(word); i < n; i++)
+    {
+        // Convert the character to uppercase (if it's a letter)
+        char letter = toupper(word[i]);
+
+        // Check if the character is an alphabetic letter
+        if (isalpha(letter))
+        {
+            // Calculate the score of this letter
+            // Substract 'A' from lettet to get index (0 for A/A, 1 for B/b),
+            score += POINTS[letter - 'A'];
+        }
+    }
+
+    return score;
 }
