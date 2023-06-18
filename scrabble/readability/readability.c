@@ -21,7 +21,7 @@ int main(void)
         }
 
         // Count words
-        if (isspace(text[i]) || i == n -1)
+        if (isspace(text[i]) || i == n - 1)
         {
             words++;
         }
