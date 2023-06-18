@@ -4,9 +4,9 @@ int main(void)
 char name[100];
 
 printf("Enter your name: ");
-scanf("%i", name);
+scanf("%s", name);
 
-printf("Hello, %i!\n", name);
+printf("Hello, %s!\n", name);
 
 return 0;
 }
