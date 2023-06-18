@@ -21,12 +21,12 @@ int main(void)
         for (int j = BITS_IN_BYTE - 1; j >= 0; j--)
         {
             // Shift bits to the right and mask with 1 to get individual bits
-            int bit = (ascii_val >> j) & 1;
-            print_Bulb(bit);
+            int bit = (ascii >> j) & 1;
+            print_bulb(bit);
         }
 
         // Print a newline to separate characters (bytes)
-        print ("\n");
+        printf("\n");
     }
 }
 
