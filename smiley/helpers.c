@@ -8,7 +8,7 @@ void colorize(int height, int width, RGBTRIPLE image[height][width])
         // Iterate through each pixel in the row
         for (int j = 0; j < width; j++)
         {
-             // Check if the pixel is black (red, green, and blue are all 0)
+            // Check if the pixel is black (red, green, and blue are all 0)
             if (image[i][j].rgbtRed == 0 && image[i][j].rgbtGreen == 0 && image[i][j].rgbtBlue == 0)
             {
                 // Change the pixel color to red
