@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     fclose(input);
     fclose(output);
     free(buffer);
-    
+
     return 0;
 }
 
