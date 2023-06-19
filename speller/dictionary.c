@@ -22,6 +22,52 @@ const unsigned int N = 26;
 // Hash table
 node *table[N];
 
+// Implement load
+bool load(const char *dictionary)
+{
+    // Open dictionary file
+    FILE *file = fopen(dictionary, "r");
+    if (file == NULL)
+    {
+        return false;
+    }
+
+    // Buffer for a word\char word[LENGHT +1];
+
+    // Load each word from the dictionary
+    while (fscanf(file, "%s", word) != EOF)
+    {
+        // Create a new node
+        node *new_node = malloc(sizeof(node));
+        if (new_node == NULL)
+        {
+            unload();
+            return false;
+        }
+
+        // Copy word into node
+        strcpy(new_node->word, word);
+
+        // Get the hash value for the word
+        unsigned int hash_value = has(word);
+
+        // Insert the node into the hash table
+        new_node->next = table[hash_value];
+        table[hash_value] = new_node;
+
+        // Increment the word count
+        word_count++;
+    }
+
+    // Close dictionary file
+    fclose(file);
+
+    // Indicate success
+    return true;
+}
+
+// Implement hash
+
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
