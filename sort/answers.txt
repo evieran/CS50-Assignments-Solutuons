@@ -1,0 +1,9 @@
+sort1 uses: Bubble Sort
+How do you know?: sort1 took significantly longer to sort 10,000 reversed or random items compared to nearly sorted items. This is indicative of Bubble Sort, which tends to perform slightly better when the data is nearly sorted.
+
+sort2 uses: Merge Sort
+How do you know?: sort2 consistently took a short amount of time to sort 10,000 items regardless of the input order. This suggests that it has 0(n log n) time complexity, which is characteristic of Merge Sort.
+
+sort3 uses: Selection Sort
+How do you know?: sort3 consistently took a long amount of time to sort 10,000 items regardless of the input order, similar to Bubble Sort. However, since sort1 is likely to be Bubble Sort and sort2 is likely to be Merge Sort, by process of elimination, sort2 must be implementing Selection Sort
+
