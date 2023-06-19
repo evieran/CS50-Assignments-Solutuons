@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 
     // TODO #3: Read header
     WAVHEADER header;
-    if (fread(&header, sizeof(WAVHEADER), 1, input)
+    if (fread(&header, sizeof(WAVHEADER), 1, input);
 
     // TODO #4: Check if the file is in WAV format
     if (!check_format(header)) {
@@ -43,21 +43,17 @@ int main(int argc, char *argv[])
     }
 
     // TODO #6: Write header to output file
-    if (fwrite(&header, sizeof(WAVHEADER), 1, output) != 1) {
-        fprintf(stderr, "Could not write header to %s. \n", argv[2]);
-        fclose(input);
-        fclose(output);
-        return 1;
-    }
+    fwrite(&header, sizeof(WAVHEADER), 1, output);
 
     // TODO #7: Use get_block_size to calculate size of block
     int block_size = get_block_size(header);
 
     // TODO #8: Write reversed audio to file
-    unsigned char buffer[block_size];
     int num_blocks = (header.subchunk2Size / block_size);
+    BYTE *buffer = malloc(block_size);
+
     for (int i = 0; i < num_blocks; i++) {
-        fseek(input, -(sizeof(WAVHEADER) + (i + 1) * block_size), SEEK_END);
+        fseek(input, -(i + 1) * block_size), SEEK_END);
         fread(buffer, block_size, 1, input);
         fwrite(buffer, block_size, 1, output);
     }
