@@ -96,7 +96,21 @@ unsigned int hash(const char *word)
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
-    // TODO
+    // Hash the word to obtain a hash value
+    unsigned int index = hash(word);
+
+    // Search the linked list at that index in the hash table
+    for (node *cursor = table[index]; cursor != NULL; cursor = cursor->next)
+    {
+        // Compare words case-insensitive
+        if (strcasecmp(cursor->word, word) == 0)
+        {
+            // The word is found in the dictionary
+            return true;
+        }
+    }
+
+    // The word was not found in the dictionary
     return false;
 }
 
