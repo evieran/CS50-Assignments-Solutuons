@@ -31,8 +31,12 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // Use check_format to ensure WAV format
-    // TODO #4
+    // TODO #4: Check if the file is in WAV format
+    if (memcmp(header.format, "WAVE", 4) == 0) {
+        return 1; //true
+    }
+    return 0; // false
+    }
 
     // Open output file for writing
     // TODO #5
