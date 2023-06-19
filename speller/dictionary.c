@@ -117,8 +117,21 @@ bool check(const char *word)
 // Hashes word to a number
 unsigned int hash(const char *word)
 {
-    // TODO: Improve this hash function
-    return toupper(word[0]) - 'A';
+    unsigned long hash = 5381;
+    int c;
+
+    // Iterate over the characters in the word
+    while ((c = *word++))
+    {
+        // Convert the character to lowercase
+        c = tolower(c);
+
+        // Hash * 33 + c
+        hash = ((hash << 5) + hash) + c;
+    }
+
+        // Use modulo to make sure it's within range
+        return hash % N;
 }
 
 // Loads dictionary into memory, returning true if successful, else false
