@@ -17,15 +17,15 @@ int main(int argc, char *argv[])
     }
 
     // TODO #2: Open input file for reading
-    FILE *input == fopen(argv[1], "r");
+    FILE *input = fopen(argv[1], "r");
     if (input == NULL) {
         fprintf(stderr, "Could not open file %s.\n", argv[1]);
         return 1;
     }
 
     // TODO #3: Read header
-    WAVEHEADER header;
-    if (fread(&header, sizeof(WAVEHEADER), 1, input) != 1) {
+    WAVHEADER header;
+    if (fread(&header, sizeof(WAVHEADER), 1, input) != 1) {
         fprintf(stderr, "Could not read header from %s. \n", argv[1]);
         fclose(input);
         return 1;
