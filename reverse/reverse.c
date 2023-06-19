@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 
     // TODO #3: Read header
     WAVHEADER header;
-    if (fread(&header, sizeof(WAVHEADER), 1, input); != 1) {
+    if (fread(&header, sizeof(WAVHEADER), 1, input) != 1) {
         fprintf(stderr, "Could not read WAV header. \n");
         fclose(input);
         return 1;
