@@ -54,11 +54,22 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // Use get_block_size to calculate size of block
-    // TODO #7
+    // TODO #7: Use get_block_size to calculate size of block
+    int block_size = get_block_size(header);
 
-    // Write reversed audio to file
-    // TODO #8
+    // TODO #8: Write reversed audio to file
+    unsigned char buffer[block_size];
+    int num_blocks = (header.data.bytes / block_size);
+    for (int i = 0; i < num_blocks; i++) {
+        fseek(input, -(sizeof(WAVHEADER) + (i + 1) * block_size), SEEK_END);
+        fread(buffer, block_size, 1, input);
+        fwrite(buffer, block_size, 1, output);
+    }
+
+    // Close files
+    fclose(input);
+    fclose(output);
+    return 0;
 }
 
 int check_format(WAVHEADER header)
@@ -72,6 +83,6 @@ int check_format(WAVHEADER header)
 
 int get_block_size(WAVHEADER header)
 {
-    // TODO #7
-    return 0;
+    // TODO #7: Calculate block size
+    return header.num_channels * (header.bits_per_sample / 8);
 }
