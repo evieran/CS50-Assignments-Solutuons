@@ -72,11 +72,8 @@ int main(int argc, char *argv[])
 
 int check_format(WAVHEADER header)
 {
-    // TODO #4
-    if (memcmp(header.format, "WAVE", 4) == 0) {
-        return 1; //true
-    }
-    return 0; // false
+    // TODO #4 Check if the format member of header is "WAVE"
+    return (strncmp((char *)header.format, "WAVE", 4) == 0);
 }
 
 int get_block_size(WAVHEADER header)
