@@ -78,6 +78,7 @@ bool load(const char *dictionary)
 
 // Implement hash
 
+
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
