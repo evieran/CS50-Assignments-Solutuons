@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
 
     // TODO #8: Write reversed audio to file
     unsigned char buffer[block_size];
-    int num_blocks = (header.data.bytes / block_size);
+    int num_blocks = (header.subchunk2Size / block_size);
     for (int i = 0; i < num_blocks; i++) {
         fseek(input, -(sizeof(WAVHEADER) + (i + 1) * block_size), SEEK_END);
         fread(buffer, block_size, 1, input);
