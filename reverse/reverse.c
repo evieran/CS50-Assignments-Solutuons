@@ -38,11 +38,21 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    // Open output file for writing
-    // TODO #5
+    // TODO #5: Open output file for writing
+    FILE *output = fopen(argv[2], "w");
+    if (output == NULL) {
+        fprintf(stderr, "Could not open file %s for writing.\n", argv[2]);
+        fclose(input);
+        return 1;
+    }
 
-    // Write header to file
-    // TODO #6
+    // TODO #6: Write header to output file
+    if (fwrite(&header, sizeof(WAVHEADER), 1, output) != 1) {
+        fprintf(stderr, "Could not write header to %s. \n", argv[2]);
+        fclose(input);
+        fclose(output);
+        return 1;
+    }
 
     // Use get_block_size to calculate size of block
     // TODO #7
