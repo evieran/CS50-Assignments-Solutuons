@@ -11,28 +11,32 @@ int get_block_size(WAVHEADER header);
 int main(int argc, char *argv[])
 {
     // Ensure proper usage
-    if (argc != 3) {
+    if (argc != 3)
+    {
         fprintf(stderr, "Usage: ./reverse input.wav output.wav\n");
         return 1;
     }
 
     // TODO #2: Open input file for reading
     FILE *input = fopen(argv[1], "r");
-    if (input == NULL) {
+    if (input == NULL)
+    {
         fprintf(stderr, "Could not open file %s.\n", argv[1]);
         return 1;
     }
 
     // TODO #3: Read header
     WAVHEADER header;
-    if (fread(&header, sizeof(WAVHEADER), 1, input) != 1) {
+    if (fread(&header, sizeof(WAVHEADER), 1, input) != 1)
+    {
         fprintf(stderr, "Could not read WAV header. \n");
         fclose(input);
         return 1;
     }
 
     // TODO #4: Check if the file is in WAV format
-    if (!check_format(header)) {
+    if (!check_format(header))
+    {
         fprintf(stderr, "Invalid WAV file.\n");
         fclose(input);
         return 1;
@@ -40,7 +44,8 @@ int main(int argc, char *argv[])
 
     // TODO #5: Open output file for writing
     FILE *output = fopen(argv[2], "w");
-    if (output == NULL) {
+    if (output == NULL)
+    {
         fprintf(stderr, "Could not open file %s.\n", argv[2]);
         fclose(input);
         return 1;
@@ -56,7 +61,8 @@ int main(int argc, char *argv[])
     int num_blocks = (header.subchunk2Size / block_size);
     BYTE *buffer = malloc(block_size);
 
-    for (int i = 0; i < num_blocks; i++) {
+    for (int i = 0; i < num_blocks; i++)
+    {
         fseek(input, -(i + 1) * block_size, SEEK_END);
         fread(buffer, block_size, 1, input);
         fwrite(buffer, block_size, 1, output);
