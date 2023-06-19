@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
     BYTE *buffer = malloc(block_size);
 
     for (int i = 0; i < num_blocks; i++) {
-        fseek(input, -(i + 1) * block_size), SEEK_END);
+        fseek(input, -(i + 1) * block_size, SEEK_END);
         fread(buffer, block_size, 1, input);
         fwrite(buffer, block_size, 1, output);
     }
