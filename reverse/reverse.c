@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     // TODO #5: Open output file for writing
     FILE *output = fopen(argv[2], "w");
     if (output == NULL) {
-        fprintf(stderr, "Could not open file %s for writing.\n", argv[2]);
+        fprintf(stderr, "Could not open file %s.\n", argv[2]);
         fclose(input);
         return 1;
     }
