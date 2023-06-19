@@ -19,6 +19,16 @@ node;
 // TODO: Choose number of buckets in hash table
 const unsigned int N = 26;
 
+// Define the node of the linked list
+typedef struct node
+{
+    char word[LENGTH + 1];
+    struct node *next;
+} node;
+
+// Number of words in the dictionary
+unsigned int word_count = 0;
+
 // Hash table
 node *table[N];
 
