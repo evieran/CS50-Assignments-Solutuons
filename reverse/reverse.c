@@ -32,10 +32,10 @@ int main(int argc, char *argv[])
     }
 
     // TODO #4: Check if the file is in WAV format
-    if (memcmp(header.format, "WAVE", 4) == 0) {
-        return 1; //true
-    }
-    return 0; // false
+    if (!check_format(header)) {
+        fprintf(stderr, "Invalid WAV file.\n");
+        fclose(input);
+        return 1;
     }
 
     // Open output file for writing
@@ -54,7 +54,10 @@ int main(int argc, char *argv[])
 int check_format(WAVHEADER header)
 {
     // TODO #4
-    return 0;
+    if (memcmp(header.format, "WAVE", 4) == 0) {
+        return 1; //true
+    }
+    return 0; // false
 }
 
 int get_block_size(WAVHEADER header)
