@@ -25,11 +25,7 @@ int main(int argc, char *argv[])
 
     // TODO #3: Read header
     WAVHEADER header;
-    if (fread(&header, sizeof(WAVHEADER), 1, input) != 1) {
-        fprintf(stderr, "Could not read header from %s. \n", argv[1]);
-        fclose(input);
-        return 1;
-    }
+    if (fread(&header, sizeof(WAVHEADER), 1, input)
 
     // TODO #4: Check if the file is in WAV format
     if (!check_format(header)) {
