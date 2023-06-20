@@ -30,7 +30,13 @@ typedef struct node
 unsigned int word_count = 0;
 
 // Hash table
-node *table[N];
+typedef struct node
+    {
+        char word[LENGHT + 1];
+        struct node *next;
+    } node;
+
+    node *table[N];
 
 // Implement load
 bool load(const char *dictionary)
@@ -143,7 +149,7 @@ bool load(const char *dictionary)
         char word[LENGHT + 1];
         struct node *next;
     } node;
-    
+
     return false;
 }
 
