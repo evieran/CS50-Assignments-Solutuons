@@ -143,14 +143,48 @@ unsigned int hash(const char *word)
 // Loads dictionary into memory, returning true if successful, else false
 bool load(const char *dictionary)
 {
-    // TODO
-    typedef struct node
+    // Initialize hash table
+    for (int i = 0; i < N; i++)
     {
-        char word[LENGHT + 1];
-        struct node *next;
-    } node;
+        table[i] = NULL;
+    }
 
-    return false;
+    // Open dictionary
+    FILE *file = fopen(dictionary, "r");
+    if (file == NULL)
+    {
+        return false;
+    }
+
+    // Buffer for a word
+    char word[LENGTH = 1];
+
+    // Insert words into hash table
+    while (fscanf(file, "%s", word) != EOF)
+    {
+        // Allocate memory for new node
+        node *new_node = malloc(sizeof(node));
+        if (new_node == NULL)
+        {
+            fclose(file);
+            return false;
+        }
+
+        // Copy word into node
+        strcpy(new_node->word, word);
+
+        // Hash word to obtain hash value
+        int index = hash(word);
+
+        // Insert node into hash table
+        new_node->next = table[index];
+        table[index] = new_node;
+    }
+
+    // Close dictionary
+    fclose(file);
+
+    return true;
 }
 
 // Returns number of words in dictionary if loaded, else 0 if not yet loaded
