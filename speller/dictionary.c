@@ -96,23 +96,6 @@ bool load(const char *dictionary)
     return true;
 }
 
-// Implement hash
-unsigned int hash(const char *word)
-{
-    // Initialize hash value
-    unsigned int hash_value = 0;
-
-    // Sum ASCII values
-    for (int i = 0; word[i] != '\0'; i++)
-    {
-        // Use tolower to ensure the hash function is case-insensitive
-        hash_value += tolower(word[i]);
-    }
-
-    // Modulus by number of buckets to get index
-    return hash_value % N;
-}
-
 // Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
