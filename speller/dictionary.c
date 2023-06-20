@@ -138,6 +138,12 @@ unsigned int hash(const char *word)
 bool load(const char *dictionary)
 {
     // TODO
+    typedef struct node
+    {
+        char word[LENGHT + 1];
+        struct node *next;
+    } node;
+    
     return false;
 }
 
