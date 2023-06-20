@@ -16,8 +16,36 @@ typedef struct node
 }
 node;
 
-// TODO: Choose number of buckets in hash table
+// Choose number of buckets in hash table
 const unsigned int N = 26;
+
+// Hash table
+node *table[N];
+
+// Number of words in the dictionary
+unsigned int word_count = 0;
+
+// Hashes word to a number
+unsigned int hash(const char *word)
+{
+    unsigned long hash_value = 5381;
+    int c;
+
+    //Iterate over the characters in the word
+    while ((c = *word++))
+    {
+        // Convert the character to lowercase
+        c = tolower(c);
+
+        // Hash * 33 + c
+        hash_value = ((hash_value << 5) + hash_value) + c;
+    }
+
+    // Use modulo to make sure it's within range
+    return hash_value % N;
+}
+
+// Loads dictionary into memory, returning true if succeessful else false
 
 // Define the node of the linked list
 typedef struct node
@@ -25,9 +53,6 @@ typedef struct node
     char word[LENGTH + 1];
     struct node *next;
 } node;
-
-// Number of words in the dictionary
-unsigned int word_count = 0;
 
 // Hash table
 typedef struct node
