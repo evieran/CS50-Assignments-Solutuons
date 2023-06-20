@@ -17,22 +17,22 @@ typedef struct node
 }
 node;
 
-     // Choose number of buckets in hash table
+// Choose number of buckets in hash table
 const unsigned int N = 26;
 
-     // Hash table
+// Hash table
 node *table[N];
 
-    // Number of words in the dictionary
+// Number of words in the dictionary
 unsigned int word_count = 0;
 
-    // Hashes word to a number
+// Hashes word to a number
 unsigned int hash(const char *word)
 {
     unsigned long hash_value = 5381;
     int c;
 
-    //Iterate over the characters in the word
+//Iterate over the characters in the word
     while ((c = *word++))
     {
         // Convert the character to lowercase
@@ -42,14 +42,14 @@ unsigned int hash(const char *word)
         hash_value = ((hash_value << 5) + hash_value) + c;
     }
 
-    // Use modulo to make sure it's within range
+// Use modulo to make sure it's within range
     return hash_value % N;
 }
 
-    // Loads dictionary into memory, returning true if succeessful else false
+// Loads dictionary into memory, returning true if succeessful else false
 bool load(const char *dictionary)
 {
-    // Initialize hash table
+// Initialize hash table
     for (int i = 0; i < N; i++)
     {
         table[i] = NULL;
@@ -63,7 +63,7 @@ bool load(const char *dictionary)
     }
 
     // Buffer for a word
-    char word[LENGTH +1];
+    char word[LENGTH + 1];
 
     // Load each word from the dictionary
     while (fscanf(file, "%s", word) != EOF)
@@ -97,7 +97,7 @@ bool load(const char *dictionary)
     return true;
 }
 
-    // Returns true if word is in dictionary, else false
+// Returns true if word is in dictionary, else false
 bool check(const char *word)
 {
     // Hash the word to obtain a hash value
@@ -118,13 +118,13 @@ bool check(const char *word)
     return false;
 }
 
-     // Return number of words in dictionary if loaded, else 0 if not yet loaded
+// Return number of words in dictionary if loaded, else 0 if not yet loaded
 unsigned int size(void)
 {
     return word_count;
 }
 
-     // Unloads dictionary from memory, returning true if successful, else false
+// Unloads dictionary from memory, returning true if successful, else false
 bool unload(void)
 {
     // Iterate through each bucket in the hash table
