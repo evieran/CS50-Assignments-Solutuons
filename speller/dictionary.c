@@ -62,7 +62,7 @@ bool load(const char *dictionary)
     }
 
     // Buffer for a word
-    char word[LENGHT +1];
+    char word[LENGTH +1];
 
     // Load each word from the dictionary
     while (fscanf(file, "%s", word) != EOF)
