@@ -60,11 +60,9 @@ bool load(const char *dictionary)
     {
         return false;
     }
-}
 
-
-
-    // Buffer for a word\char word[LENGHT +1];
+    // Buffer for a word
+    char word[LENGHT +1];
 
     // Load each word from the dictionary
     while (fscanf(file, "%s", word) != EOF)
@@ -73,7 +71,7 @@ bool load(const char *dictionary)
         node *new_node = malloc(sizeof(node));
         if (new_node == NULL)
         {
-            unload();
+           fclose(file);
             return false;
         }
 
@@ -81,11 +79,11 @@ bool load(const char *dictionary)
         strcpy(new_node->word, word);
 
         // Get the hash value for the word
-        unsigned int hash_value = has(word);
+        int index = hash(word);
 
         // Insert the node into the hash table
-        new_node->next = table[hash_value];
-        table[hash_value] = new_node;
+        new_node->next = table[index];
+        table[index] = new_node;
 
         // Increment the word count
         word_count++;
