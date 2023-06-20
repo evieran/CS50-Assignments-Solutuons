@@ -72,7 +72,7 @@ bool load(const char *dictionary)
         node *new_node = malloc(sizeof(node));
         if (new_node == NULL)
         {
-           fclose(file);
+            fclose(file);
             return false;
         }
 
