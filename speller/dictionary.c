@@ -46,32 +46,23 @@ unsigned int hash(const char *word)
 }
 
 // Loads dictionary into memory, returning true if succeessful else false
-
-// Define the node of the linked list
-typedef struct node
-{
-    char word[LENGTH + 1];
-    struct node *next;
-} node;
-
-// Hash table
-typedef struct node
-    {
-        char word[LENGHT + 1];
-        struct node *next;
-    } node;
-
-    node *table[N];
-
-// Implement load
 bool load(const char *dictionary)
 {
-    // Open dictionary file
-    FILE *file = fopen(dictionary, "r");
+    // Initialize hash table
+    for (int i = 0; i < N; i++)
+    {
+        table[i] = NULL;
+    }
+
+    // Open dictionary
+    FILE *file == fopen(dictionary, "r");
     if (file == NULL)
     {
         return false;
     }
+}
+
+
 
     // Buffer for a word\char word[LENGHT +1];
 
