@@ -5,16 +5,33 @@ import sys
 def main():
 
     # TODO: Check for command-line usage
+    if len(sys.argv) !=3:
+        print("Usage: python dna.py data.csv sequence.txt")
+        sys.exit(1)
 
     # TODO: Read database file into a variable
-    
+    with open((sys.argv[1]), newline='') as csvfile:
+    reader = csv.DictReader(csvfile)
+    database = [row for row in reader]
+
     # TODO: Read DNA sequence file into a variable
+    with open(sys.argv[2], 'r') as file:
+        sequence = file.read()
 
     # TODO: Find longest match of each STR in DNA sequence
+    str_counts = {}
+    for str_sequence in database[0].keys():
+        if str_sequence != 'name':
+            str_counts[str_sequence] = longest_match(sequence, str_sequence)
 
     # TODO: Check database for matching profiles
+    for profile in database:
+        if all(str_counts[str_sequence] == int(profile[str_sequence]) for str_sequence in str_counts):
+            print(profile['name'])
+            return
 
-    return
+    # If no match was found
+    print("No match")
 
 
 def longest_match(sequence, subsequence):
@@ -43,16 +60,16 @@ def longest_match(sequence, subsequence):
             # If there is a match in the substring
             if sequence[start:end] == subsequence:
                 count += 1
-            
+
             # If there is no match in the substring
             else:
                 break
-        
+
         # Update most consecutive matches found
         longest_run = max(longest_run, count)
 
     # After checking for runs at each character in seqeuence, return longest run found
     return longest_run
 
-
+if__name__ == "__main__":
 main()
