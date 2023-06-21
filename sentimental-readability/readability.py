@@ -16,7 +16,7 @@ def main():
     # Caculate the Coleman-Liau index
     index = round(0.0588 * L - 0.296 * S - 15.8)
 
-    #Output the grade level
+    # Output the grade level
     if index >= 16:
         print("Grade 16+")
     elif index < 1:
