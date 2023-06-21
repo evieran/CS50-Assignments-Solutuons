@@ -1,15 +1,18 @@
 Times:
 
-10 simulations: TODO (record time using 0m0.000s format)
-100 simulations: TODO (record time using 0m0.000s format)
-1000 simulations: TODO (record time using 0m0.000s format)
-10000 simulations: TODO (record time using 0m0.000s format)
-100000 simulations: TODO (record time using 0m0.000s format)
-1000000 simulations: TODO (record time using 0m0.000s format)
+10 simulations: 0m0.036s
+100 simulations: 0m0.026s
+1000 simulations: 0m0.025s
+10000 simulations: 0m0.026s
+100000 simulations: 0m0.026s
+1000000 simulations: 0m0.027s
 
 Questions:
 
-Which predictions, if any, proved incorrect as you increased the number of simulations?: TODO
+Which predictions, if any, proved incorrect as you increased the number of simulations?:
+As you increase the number of simulations, the predictions should converge to more stable values.
+With a small number of simulations, you might observe more variance in the predictions.
+By increasing the number of simulations, you are effectively reducing the impact of randomness and obtaining more reliable estimates.
 
 Suppose you're charged a fee for each second of compute time your program uses.
 After how many simulations would you call the predictions "good enough"?: TODO
