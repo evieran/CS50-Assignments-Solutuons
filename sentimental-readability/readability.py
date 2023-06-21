@@ -24,5 +24,5 @@ def main():
     else:
         print(f"Grade {index}")
 
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
