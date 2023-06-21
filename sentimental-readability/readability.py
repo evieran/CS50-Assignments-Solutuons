@@ -2,7 +2,7 @@ from cs50 import get_string
 
 def main():
     # Get the text from the user
-    text = input("Text: ")
+    text = get_string("Text: ")
 
     # Count the number of letters, words, and sentences
     num_letters = sum(c.isalpha() for c in text)
