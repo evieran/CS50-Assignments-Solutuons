@@ -1,5 +1,6 @@
 from cs50 import get_float
 
+
 def main():
     while True:
         # Get the amount of change owed in dollars
@@ -22,6 +23,7 @@ def main():
 
     # Output the result
     print(total_coins)
+
 
 if __name__ == "__main__":
     main()
