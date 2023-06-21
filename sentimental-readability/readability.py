@@ -1,5 +1,6 @@
 from cs50 import get_string
 
+
 def main():
     # Get the text from the user
     text = get_string("Text: ")
@@ -23,6 +24,7 @@ def main():
         print("Before Grade 1")
     else:
         print(f"Grade {index}")
+
 
 if __name__ == "__main__":
     main()
