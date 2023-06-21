@@ -15,4 +15,8 @@ With a small number of simulations, you might observe more variance in the predi
 By increasing the number of simulations, you are effectively reducing the impact of randomness and obtaining more reliable estimates.
 
 Suppose you're charged a fee for each second of compute time your program uses.
-After how many simulations would you call the predictions "good enough"?: TODO
+After how many simulations would you call the predictions "good enough"?:
+This can be somewhat subjective and might depend on the specific use case.
+In general, a higher number of simulations will provide more accurate predictions, but at the cost of increased computational time.
+You might choose a point where the predictions have stabilized and the additional accuracy gained from further simulations is marginal compared to the computational cost.
+For practical purposes, this might be in the tens of thousands or hundreds of thousands of simulations, depending on the complexity of the model and the computational resources available.
