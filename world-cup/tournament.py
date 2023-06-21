@@ -69,7 +69,7 @@ def simulate_tournament(teams):
 
     # Simulate games for all pairs of teams
     for i in range(0, len(teams), 2):
-        if simulate_game(teams[i], teams[i + 1]);
+        if simulate_game(teams[i], teams[i + 1]):
             winners.append(teans[1])
         else:
             winners.append(teams[i + 1])
