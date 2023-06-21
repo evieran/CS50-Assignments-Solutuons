@@ -1,6 +1,6 @@
 from cs50 import get_float
 
-def mani():
+def main():
     while True:
         # Get the amount of change owed in dollars
         change = get_float("Change owed: ")
