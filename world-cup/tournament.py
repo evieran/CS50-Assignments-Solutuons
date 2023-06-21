@@ -41,7 +41,6 @@ def main():
         print(f"{team}: {counts[team] * 100 / N:.1f}% chance of winning")
 
 
-
 def simulate_game(team1, team2):
     """Simulate a game. Return True if team1 wins, False otherwise."""
     rating1 = team1["rating"]
@@ -76,6 +75,7 @@ def simulate_tournament(teams):
             winners.append(teams[i + 1])
 
     return winners
+
 
 def simulate_tournament(teams):
     """Simulate a tournament. Return name of winning team."""
