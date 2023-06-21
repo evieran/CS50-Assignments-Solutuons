@@ -25,8 +25,6 @@ def main():
                 "team": row["team"],
                 "rating": int(row["rating"])
             })
-    # Number of simulations from command line
-    num_simulations = int(sys.argv[2])
 
     counts = {}
     # TODO: Simulate N tournaments and keep track of win counts
