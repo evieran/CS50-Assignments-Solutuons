@@ -5,7 +5,7 @@ import sys
 def main():
 
     # TODO: Check for command-line usage
-    if len(sys.argv) !=3:
+    if len(sys.argv) != 3:
         print("Usage: python dna.py data.csv sequence.txt")
         sys.exit(1)
 
@@ -70,6 +70,7 @@ def longest_match(sequence, subsequence):
 
     # After checking for runs at each character in seqeuence, return longest run found
     return longest_run
+
 
 if __name__ == "__main__":
     main()
