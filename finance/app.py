@@ -85,10 +85,10 @@ def buy():
 
     # For each stock, find the current price and calculate total value
     for stock in stocks:
-        quote = lookup(stock["symbol"])
-        stock["price"] = quote["price"]
-        stock["total"] = stock["total_shares"] * quote["price"]
-        total_value += stock["total"]
+    quote = lookup(stock["symbol"])
+    stock["price"] = quote["price"]
+    stock["total"] = stock["total_shares"] * quote["price"]
+    total_value += stock["total"]
 
     # Render the template for the portfolio
     return render_template("index.html", stocks=stocks, total_value=total_value)
