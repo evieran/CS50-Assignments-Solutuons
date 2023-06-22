@@ -198,8 +198,7 @@ def quote():
 @login_required
 def sell():
     """Sell shares of stock"""
-    # ... your existing sell function code here ...
-
+    
 if __name__ == "__main__":
     app.run(debug=True)
 
