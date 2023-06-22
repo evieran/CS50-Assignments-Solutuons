@@ -1,0 +1,28 @@
+/* Tag Selector - selects all h1 elements */
+h1 {
+    font-size: 36px; /* CSS Property: sets the font size of the text */
+    color: #2E86C1; /* CSS Property: sets the text color */
+}
+
+/* Class Selector - selects all elements with the class 'navbar' */
+.navbar {
+    background-color: #AED6F1; /* CSS Property: sets the background color */
+    padding: 15px; /* CSS Property: sets the padding around the navbar */
+}
+
+/* ID Selector - selects the element with the ID 'navbarNav' */
+#navbarNav {
+    text-align: right; /* CSS Property: aligns the text within the element */
+}
+
+/* Descendant Selector - selects all anchor elements within elements having the class 'navbar' */
+.navbar a {
+    margin-right: 20px; /* CSS Property: sets the right margin of anchor tags */
+    text-decoration: none; /* CSS Property: removes the underline from links */
+    color: #154360;
+}
+
+/* Pseudo-class Selector - selects anchor elements on hover within elements having the class 'navbar' */
+.navbar a:hover {
+    color: #5499C7;
+}
