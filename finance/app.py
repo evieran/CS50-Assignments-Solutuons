@@ -79,7 +79,7 @@ def buy():
     """Show portfolio of stocks"""
 
     # User reached route via POST
-      if request.method == "POST":
+    if request.method == "POST":
 
           # Ensure symbol was submitted
           if not request.form.get("symbol"):
