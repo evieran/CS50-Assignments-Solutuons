@@ -231,13 +231,6 @@ def quote():
     else:
         return render_template("quote.html")
 
-
-@app.route("/register", methods=["GET", "POST"])
-def register():
-    """Register user"""
-    return apology("TODO")
-
-
 @app.route("/sell", methods=["GET", "POST"])
 @login_required
 def sell():
