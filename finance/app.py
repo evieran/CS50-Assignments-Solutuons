@@ -95,14 +95,67 @@ def index():
 @login_required
 def buy():
     """Buy shares of stock"""
-    return apology("TODO")
+    # User reached route via POST
+    if request.method == "POST":
+
+        # Ensure symbol was submitted
+        if not request.form.get("symbol"):
+            return apology("must provide symbol")
+
+        # Ensure shares was submitted
+        elif not request.form.get("shares"):
+            return apology("must provide number of shares")
+
+        # Ensure shares is a positive integer
+        try:
+            shares = int(request.form.get("shares"))
+            if shares < 1:
+                return apology("shares must be a positive integer")
+        except ValueError:
+            return apology("shares must be a positive integer")
+
+        # Query database for user's cash
+        rows = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
+        cash = rows[0]["cash"]
+
+        # Lookup stock information
+        quote = lookup(request.form.get("symbol"))
+
+        # Ensure symbol is valid
+        if quote is None:
+            return apology("invalid symbol")
+
+        # Calculate total purchase value
+        total_value = shares * quote["price"]
+
+        # Ensure user has enough cash
+        if total_value > cash:
+            return apology("not enough cash")
+
+        # Update user's cash
+        db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_value, session["user_id"])
+
+        # Insert transaction into database
+        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
+                   session["user_id"], quote["symbol"], shares, quote["price"])
+
+        # Redirect to home page
+        return redirect("/")
+
+    # User reached route via GET
+    else:
+        return render_template("buy.html")
 
 
 @app.route("/history")
 @login_required
 def history():
     """Show history of transactions"""
-    return apology("TODO")
+    # Query the database for the user's transactions
+    transactions = db.execute("SELECT symbol, shares, price, timestamp FROM transactions WHERE user_id = ?", session["user_id"])
+
+    # Render the template for the history
+    return render_template("history.html", transactions=transactions)
 
 
 @app.route("/login", methods=["GET", "POST"])
