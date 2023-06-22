@@ -44,7 +44,7 @@ AND (atm.year = 2021 AND atm.month = 7 AND atm.day >= 28);
 -- Identify potential suspects:
 SELECT *
 FROM atm_transactions
-WHERE year = 2021 AND month = 7 AND day = 28 AND atm_location = 'Humphrey Street';
+WHERE year = 2021 AND month = 7 AND day = 28 AND atm_location = 'Humphrey Lane';
 
 SELECT *
 FROM phone_calls
