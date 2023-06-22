@@ -60,7 +60,8 @@ def register():
 @login_required
 def index():
     """Show portfolio of stocks"""
-    stocks = db.execute("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = ? GROUP BY symbol HAVING total_shares > 0", session["user_id"])
+    stocks = db.execute
+    ("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = ? GROUP BY symbol HAVING total_shares > 0", session["user_id"])
     total_value = 0
 
     for stock in stocks:
@@ -75,58 +76,58 @@ def index():
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
 def buy():
-   """Show portfolio of stocks"""
+    """Show portfolio of stocks"""
 
     # User reached route via POST
-    if request.method == "POST":
+      if request.method == "POST":
 
-        # Ensure symbol was submitted
-        if not request.form.get("symbol"):
-            return apology("must provide symbol")
+          # Ensure symbol was submitted
+          if not request.form.get("symbol"):
+              return apology("must provide symbol")
 
-        # Ensure shares was submitted
-        elif not request.form.get("shares"):
-            return apology("must provide number of shares")
+          # Ensure shares was submitted
+          elif not request.form.get("shares"):
+              return apology("must provide number of shares")
 
-        # Ensure shares is a positive integer
-        try:
-            shares = int(request.form.get("shares"))
-            if shares < 1:
-                return apology("shares must be a positive integer")
-        except ValueError:
-            return apology("shares must be a positive integer")
+          # Ensure shares is a positive integer
+          try:
+              shares = int(request.form.get("shares"))
+              if shares < 1:
+                  return apology("shares must be a positive integer")
+          except ValueError:
+              return apology("shares must be a positive integer")
 
-        # Query database for user's cash
-        rows = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
-        cash = rows[0]["cash"]
+          # Query database for user's cash
+          rows = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
+          cash = rows[0]["cash"]
 
-        # Lookup stock information
-        quote = lookup(request.form.get("symbol"))
+          # Lookup stock information
+          quote = lookup(request.form.get("symbol"))
 
-        # Ensure symbol is valid
-        if quote is None:
-            return apology("invalid symbol")
+          # Ensure symbol is valid
+          if quote is None:
+              return apology("invalid symbol")
 
-        # Calculate total purchase value
-        total_value = shares * quote["price"]
+          # Calculate total purchase value
+          total_value = shares * quote["price"]
 
-        # Ensure user has enough cash
-        if total_value > cash:
-            return apology("not enough cash")
+          # Ensure user has enough cash
+          if total_value > cash:
+              return apology("not enough cash")
 
-        # Update user's cash
-        db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_value, session["user_id"])
+          # Update user's cash
+          db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_value, session["user_id"])
 
-        # Insert transaction into database
-        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
+          # Insert transaction into database
+          db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
                    session["user_id"], quote["symbol"], shares, quote["price"])
 
-        # Redirect to home page
-        return redirect("/")
+          # Redirect to home page
+          return redirect("/")
 
-    # User reached route via GET
-    else:
-        return render_template("buy.html")
+      # User reached route via GET
+      else:
+          return render_template("buy.html")
 
 
 @app.route("/history")
@@ -150,7 +151,7 @@ def login():
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
-        # Ensure username was submitted
+          # Ensure username was submitted
         if not request.form.get("username"):
             return apology("must provide username", 403)
 
