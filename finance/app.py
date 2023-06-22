@@ -77,21 +77,56 @@ def index():
 def buy():
    """Show portfolio of stocks"""
 
-    # Query the database for the user's stocks
-    stocks = db.execute("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = ? GROUP BY symbol HAVING total_shares > 0", session["user_id"])
+    # User reached route via POST
+    if request.method == "POST":
 
-    # Initialize variable for total value of portfolio
-    total_value = 0
+        # Ensure symbol was submitted
+        if not request.form.get("symbol"):
+            return apology("must provide symbol")
 
-    # For each stock, find the current price and calculate total value
-    for stock in stocks:
-    quote = lookup(stock["symbol"])
-    stock["price"] = quote["price"]
-    stock["total"] = stock["total_shares"] * quote["price"]
-    total_value += stock["total"]
+        # Ensure shares was submitted
+        elif not request.form.get("shares"):
+            return apology("must provide number of shares")
 
-    # Render the template for the portfolio
-    return render_template("index.html", stocks=stocks, total_value=total_value)
+        # Ensure shares is a positive integer
+        try:
+            shares = int(request.form.get("shares"))
+            if shares < 1:
+                return apology("shares must be a positive integer")
+        except ValueError:
+            return apology("shares must be a positive integer")
+
+        # Query database for user's cash
+        rows = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
+        cash = rows[0]["cash"]
+
+        # Lookup stock information
+        quote = lookup(request.form.get("symbol"))
+
+        # Ensure symbol is valid
+        if quote is None:
+            return apology("invalid symbol")
+
+        # Calculate total purchase value
+        total_value = shares * quote["price"]
+
+        # Ensure user has enough cash
+        if total_value > cash:
+            return apology("not enough cash")
+
+        # Update user's cash
+        db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_value, session["user_id"])
+
+        # Insert transaction into database
+        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
+                   session["user_id"], quote["symbol"], shares, quote["price"])
+
+        # Redirect to home page
+        return redirect("/")
+
+    # User reached route via GET
+    else:
+        return render_template("buy.html")
 
 
 @app.route("/history")
