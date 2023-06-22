@@ -196,39 +196,41 @@ def register():
     """Register user"""
     # GET
     if request.method == "GET":
-        return render_
-
-        # Ensure username was submitted
-        if not request.form.get("username"):
-            return apology("must provide username")
-
-        # Ensure password was submitted
-        elif not request.form.get("password"):
-            return apology("must provide password")
-
-        # Ensure password confirmation matches
-        elif request.form.get("password") != request.form.get("confirmation"):
-            return apology("password must match")
-
-        # Hash user's password
-        hash = generate_password_hash(request.form.get("password"))
-
-        # Insert the new user into the database
-        new_user_id = db.execute("INSERT INTO users (username, hash) VALUES(?, ?)", request.form.get("username"), hash)
-
-        # Check if the username already exists
-        if not new_user_id:
-            return apology("username already exists")
-
-        # Log user in
-        session["user_id"] = new_user_id
-
-        # Redirect user to home page
-        return redirect("/")
-
-    # User reached route via GET
-    else:
+        def register():
+    """Register user"""
+    # GET
+    if request.method == "GET":
         return render_template("register.html")
+    # POST
+    if request.method == "POST":
+        username = request.form.get('username')
+        password = request.form.get('password')
+        password_re = request.form.get('confirmation')
+
+    # check for empty password or username
+    if not username:
+        return apology("Missing Username")
+    if not password or not password_re:
+        return apology("missing Password")
+    # check for match of password
+    if password != password_re:
+        return apology("Passwords are not match")
+
+    # check username is not duplicate
+    res = db.execute("SELECT * FROM users WHERE username = ?",username)
+    if res or len(res) != 0  :
+        return apology("Username is duplicate")
+
+    # insert username and password in to data base
+    res = db.execute("""
+    INSERT INTO users (username,hash) VALUES (?, ?)
+    """,username,generate_password_hash(password))
+
+    # flash user to registered complete
+    flash("register is complete")
+
+    # redirect user to login page
+    return redirect('/login')
 
 
 @app.route("/sell", methods=["GET", "POST"])
