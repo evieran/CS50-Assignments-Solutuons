@@ -190,11 +190,13 @@ def quote():
     # User reached route via GET
     else:
         return render_template("quote.html")@app.route("/register", methods=["GET", "POST"])
+
+@app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
-
-    # User reached route via POST
-    if request.method == "POST":
+    # GET
+    if request.method == "GET":
+        return render_
 
         # Ensure username was submitted
         if not request.form.get("username"):
