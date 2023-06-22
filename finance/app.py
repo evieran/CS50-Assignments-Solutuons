@@ -75,15 +75,35 @@ def index():
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
 def buy():
-    """Buy shares of stock"""
-    # ... your existing buy function code here ...
+   """Show portfolio of stocks"""
+
+    # Query the database for the user's stocks
+    stocks = db.execute("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = ? GROUP BY symbol HAVING total_shares > 0", session["user_id"])
+
+    # Initialize variable for total value of portfolio
+    total_value = 0
+
+    # For each stock, find the current price and calculate total value
+    for stock in stocks:
+        quote = lookup(stock["symbol"])
+        stock["price"] = quote["price"]
+        stock["total"] = stock["total_shares"] * quote["price"]
+        total_value += stock["total"]
+
+    # Render the template for the portfolio
+    return render_template("index.html", stocks=stocks, total_value=total_value)
 
 
 @app.route("/history")
 @login_required
 def history():
     """Show history of transactions"""
-    # ... your existing history function code here ...
+
+    # Query the database for the user's transactions
+    transactions = db.execute("SELECT symbol, shares, price, timestamp FROM transactions WHERE user_id = ?", session["user_id"])
+
+    # Render the template for the history
+    return render_template("history.html", transactions=transactions)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -102,11 +122,79 @@ def logout():
 @login_required
 def quote():
     """Get stock quote."""
-    # ... your existing quote function code here ...
+    # User reached route via POST
+    if request.method == "POST":
+
+        # Ensure symbol was submitted
+        if not request.form.get("symbol"):
+            return apology("must provide symbol")
+
+        # Lookup stock information
+        quote = lookup(request.form.get("symbol"))
+
+        # Ensure symbol is valid
+        if quote is None:
+            return apology("invalid symbol")
+
+        # Display stock information
+        return render_template("quoted.html", quote=quote)
+
+    # User reached route via GET
+    else:
+        return render_template("quote.html")
 
 
 @app.route("/sell", methods=["GET", "POST"])
 @login_required
 def sell():
     """Sell shares of stock"""
-    # ... your existing sell function
+    # User reached route via POST
+    if request.method == "POST":
+
+        # Ensure symbol was submitted
+        if not request.form.get("symbol"):
+            return apology("must provide symbol")
+
+        # Ensure shares was submitted
+        elif not request.form.get("shares"):
+            return apology("must provide number of shares")
+
+        # Ensure shares is a positive integer
+        try:
+            shares = int(request.form.get("shares"))
+            if shares < 1:
+                return apology("shares must be a positive integer")
+        except ValueError:
+            return apology("shares must be a positive integer")
+
+        # Lookup stock information
+        quote = lookup(request.form.get("symbol"))
+
+        # Ensure symbol is valid
+        if quote is None:
+            return apology("invalid symbol")
+
+        # Query database for user's shares of the stock
+        user_shares = db.execute("SELECT SUM(shares) as total_shares FROM transactions WHERE user_id = ? AND symbol = ?",
+                                 session["user_id"], quote["symbol"])
+
+        # Ensure user has enough shares to sell
+        if not user_shares or user_shares[0]["total_shares"] < shares:
+            return apology("not enough shares")
+
+        # Update user's cash
+        db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", shares * quote["price"], session["user_id"])
+
+        # Insert sell transaction into database (negative shares)
+        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
+                   session["user_id"], quote["symbol"], -shares, quote["price"])
+
+        # Redirect to home page
+        return redirect("/")
+
+    # User reached route via GET
+    else:
+        # Query database for user's stocks
+        stocks = db.execute("SELECT DISTINCT symbol FROM transactions WHERE user_id = ?", session["user_id"])
+
+        return render_template("sell.html", stocks=stocks)
