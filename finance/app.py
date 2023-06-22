@@ -31,46 +31,6 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-
-@app.route("/register", methods=["GET", "POST"])
-def register():
-    """Register user"""
-
-    # User reached route via POST
-    if request.method == "POST":
-
-        # Ensure username was submitted
-        if not request.form.get("username"):
-            return apology("must provide username")
-
-        # Ensure password was submitted
-        elif not request.form.get("password"):
-            return apology("must provide password")
-
-        # Ensure password confirmation matches
-        elif request.form.get("password") != request.form.get("confirmation"):
-            return apology("password must match")
-
-        # Hash user's password
-        hash = generate_password_hash(request.form.get("password"))
-
-        # Insert the new user into the database
-        new_user_id = db.execute("INSERT INTO users (username, hash) VALUES(?, ?)", request.form.get("username"), hash)
-
-        # Check if the username already exists
-        if not new_user_id:
-            return apology("username already exists")
-
-        # Log user in
-        session["user_id"] = new_user_id
-
-        # Redirect user to home page
-        return redirect("/")
-
-    # User reached route via GET
-    else:
-        return render_template("register.html")
-
 @app.route("/")
 @login_required
 def index():
