@@ -242,4 +242,53 @@ def register():
 @login_required
 def sell():
     """Sell shares of stock"""
-    return apology("TODO")
+    # User reached route via POST
+    if request.method == "POST":
+
+        # Ensure symbol was submitted
+        if not request.form.get("symbol"):
+            return apology("must provide symbol")
+
+        # Ensure shares was submitted
+        elif not request.form.get("shares"):
+            return apology("must provide number of shares")
+
+        # Ensure shares is a positive integer
+        try:
+            shares = int(request.form.get("shares"))
+            if shares < 1:
+                return apology("shares must be a positive integer")
+        except ValueError:
+            return apology("shares must be a positive integer")
+
+        # Lookup stock information
+        quote = lookup(request.form.get("symbol"))
+
+        # Ensure symbol is valid
+        if quote is None:
+            return apology("invalid symbol")
+
+        # Query database for user's shares of the stock
+        user_shares = db.execute("SELECT SUM(shares) as total_shares FROM transactions WHERE user_id = ? AND symbol = ?",
+                                 session["user_id"], quote["symbol"])
+
+        # Ensure user has enough shares to sell
+        if not user_shares or user_shares[0]["total_shares"] < shares:
+            return apology("not enough shares")
+
+        # Update user's cash
+        db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", shares * quote["price"], session["user_id"])
+
+        # Insert sell transaction into database (negative shares)
+        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
+                   session["user_id"], quote["symbol"], -shares, quote["price"])
+
+        # Redirect to home page
+        return redirect("/")
+
+    # User reached route via GET
+    else:
+        # Query database for user's stocks
+        stocks = db.execute("SELECT DISTINCT symbol FROM transactions WHERE user_id = ?", session["user_id"])
+
+        return render_template("sell.html", stocks=stocks)
