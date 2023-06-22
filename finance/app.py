@@ -1,4 +1,5 @@
 import os
+import logging
 
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
@@ -267,5 +268,5 @@ def sell():
 
         return render_template("sell.html", stocks=stocks)
 
-if __name__ == "__main__": 
+if __name__ == "__main__":
     app.run(debug=True)
