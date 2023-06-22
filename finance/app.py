@@ -186,12 +186,6 @@ def logout():
     # Redirect user to login form
     return redirect("/")
 
-@app.route("/sell", methods=["GET", "POST"])
-@login_required
-def sell():
-    """Sell shares of stock"""
-
-
 if __name__ == "__main__":
     app.run(debug=True)
 
