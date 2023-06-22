@@ -125,9 +125,9 @@ def buy():
           # Redirect to home page
           return redirect("/")
 
-      # User reached route via GET
-      else:
-          return render_template("buy.html")
+    # User reached route via GET
+    else:
+        return render_template("buy.html")
 
 
 @app.route("/history")
