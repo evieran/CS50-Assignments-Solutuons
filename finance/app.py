@@ -151,7 +151,7 @@ def login():
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
-          # Ensure username was submitted
+       # Ensure username was submitted
         if not request.form.get("username"):
             return apology("must provide username", 403)
 
@@ -198,7 +198,7 @@ def quote():
 @login_required
 def sell():
     """Sell shares of stock"""
-    
+
 
 if __name__ == "__main__":
     app.run(debug=True)
