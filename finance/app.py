@@ -71,11 +71,25 @@ def register():
     else:
         return render_template("register.html")
 
+@app.route("/")
 @login_required
 def index():
     """Show portfolio of stocks"""
-    return apology("TODO")
+    # Query the database for the user's stocks
+    stocks = db.execute("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = ? GROUP BY symbol HAVING total_shares > 0", session["user_id"])
 
+    # Initialize variable for total value of portfolio
+    total_value = 0
+
+    # For each stock, find the current price and calculate total value
+    for stock in stocks:
+        quote = lookup(stock["symbol"])
+        stock["price"] = quote["price"]
+        stock["total"] = stock["total_shares"] * quote["price"]
+        total_value += stock["total"]
+
+    # Render the template for the portfolio
+    return render_template("index.html", stocks=stocks, total_value=total_value)
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <table>
+        <tr>
+            <th>Symbol</th>
+            <th>Shares</th>
+            <th>Price</th>
+            <th>Total Value</th>
+        </tr>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{ stock.symbol }}</td>
+            <td>{{ stock.total_shares }}</td>
+            <td>{{ stock.price | usd }}</td>
+            <td>{{ stock.total | usd }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p>Total value of portfolio: {{ total_value | usd }}</p>
+{% endblock %}
