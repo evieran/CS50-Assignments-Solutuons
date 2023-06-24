@@ -43,26 +43,43 @@ def after_request(response):
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
+    # Forget any user_id
+    session.clear()
+
+    # User reached route cia POST
     if request.method == "POST":
+
+        # Ensure username was submitted
         if not request.form.get("username"):
             return apology("must provide username", 400)
+
+        # Ensure password was submitted
         elif not request.form.get("password"):
             return apology("must provide password", 400)
+
+        # Ensure password confirmation was submitted
         elif not request.form.get("confirmation"):
             return apology("must confirm password", 400)
+
+        # Ensure password and confirmation match
         elif request.form.get("password") != request.form.get("confirmation"):
             return apology("password must match", 400)
 
         # Query databse for username
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
+        #Ensure username does not already exist
         if len(rows) != 0:
             return apology("username already exists", 400)
 
+        # Insert new user into database
         db.execute("INSERT INTO users (username, hash) VALUES(?, ?)",
                    request.form.get("username"), generate_password_hash(request.form.get("password")))
+
+        # Query database for newly inserted user
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
+        #Remember which user has logged in
         session["user_id"] = rows[0]["id"]
         return redirect("/")
 
