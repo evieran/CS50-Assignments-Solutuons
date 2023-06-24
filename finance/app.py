@@ -123,7 +123,7 @@ def buy():
 
         # Calculate the total purchase cost
         stock_price = stock_info["price"]
-        total_cost = shares * stock_price
+        total_cost = shares * decimal(stock_price)
 
         # Check user's cash balance
         rows = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
@@ -140,7 +140,7 @@ def buy():
         db.execute("""
             INSERT INTO transactions (user_id, symbol, shares, price)
             VALUES (?, ?, ?, ?)
-        """, session["user_id"], symbol, shares, stock_price)
+        """, session["user_id"], symbol, shares, decimal(stock_price))
 
         # Redirect user to home page
         return redirect("/")
