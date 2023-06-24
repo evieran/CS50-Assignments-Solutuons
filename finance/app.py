@@ -141,7 +141,7 @@ def buy():
         db.execute("""
             INSERT INTO transactions (user_id, symbol, shares, price)
             VALUES (?, ?, ?, ?)
-        """, session["user_id"], symbol, shares, decimal(stock_price))
+        """, session["user_id"], symbol, 10, decimal(stock_price))
 
         # Redirect user to home page
         return redirect("/")
