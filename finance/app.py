@@ -236,6 +236,9 @@ def quote():
         # Calculate the total cost based on the quote
         cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])[0]["cash"]
 
+        # Add print statement here
+        print(f"user_id from session: {session['user_id']}")
+
         if total_cost > cash:
             return apology("not enough cash", 400)
 
