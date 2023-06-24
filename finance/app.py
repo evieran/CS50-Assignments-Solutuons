@@ -218,55 +218,66 @@ def quote():
 @login_required
 def sell():
     """Sell shares of stock"""
+
     # User reached route via POST
     if request.method == "POST":
 
         # Ensure symbol was submitted
-        if not request.form.get("symbol"):
-            return apology("must provide symbol")
+        symbol = request.form.get("symbol")
+        if not symbol:
+            return apology("must select a symbol", 400)
 
         # Ensure shares was submitted
-        elif not request.form.get("shares"):
-            return apology("must provide number of shares")
-
-        # Ensure shares is a positive integer
         try:
             shares = int(request.form.get("shares"))
             if shares < 1:
-                return apology("shares must be a positive integer")
+                return apology("shares must be positive integer", 400)
         except ValueError:
-            return apology("shares must be a positive integer")
-
-        # Lookup stock information
-        quote = lookup(request.form.get("symbol"))
-
-        # Ensure symbol is valid
-        if quote is None:
-            return apology("invalid symbol")
+            return apology("shares must be a positive integer", 400)
 
         # Query database for user's shares of the stock
-        user_shares = db.execute("SELECT SUM(shares) as total_shares FROM transactions WHERE user_id = ? AND symbol = ?", session["user_id"], quote["symbol"])
+        stock = db.execute("""
+            SELECT SUM(shares) as total_shares
+            FROM transactions
+            WHERE user_id = ? AND symbol = ?
+            GROUP by symbol
+        """, session["user_id"], symbol)
 
         # Ensure user has enough shares to sell
-        if not user_shares or user_shares[0]["total_shares"] < shares:
-            return apology("not enough shares")
+        if not stock or stock[0]["total_shares"] < shares:
+            return apology("not enough shares", 400)
+
+        # Get current price of the stock
+        stock_info = lookup(symbol)
+        if not stock_info:
+            return apology("invalid symbol", 400)
 
         # Update user's cash
-        db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", shares * quote["price"], session["user_id"])
+        db.execute("""
+            UPDATE users
+            SET cash = cash + ?
+            WHERE id = ?
+        """, stock_info["price"] * shares, session["user_id"])
 
-        # Insert sell transaction into database (negative shares)
-        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
-                   session["user_id"], quote["symbol"], -shares, quote["price"])
+        # Insert sell transaction into database
+        db.execute("""
+            INSERT INTO transactions (user_id, symbol, shares, price)
+            VALUES (?, ?, ?, ?)
+        """, session["user_id"], symbol, -shares, stock_info["price"])
 
-        # Redirect to home page
+        # Redirect to index page
         return redirect("/")
 
     # User reached route via GET
     else:
         # Query database for user's stocks
-        stocks = db.execute("SELECT DISTINCT symbol FROM transactions WHERE user_id = ?", session["user_id"])
+       symbols = db.execute("""
+            SELECT DISTINCT symbol
+            FROM transactions
+            WHERE user_id = ?
+        """, session["user_id"])
 
-        return render_template("sell.html", stocks=stocks)
+       return render_template("sell.html", symbols=[stock["symbol"] for stock in symbols])
 
 if __name__ == "__main__":
     app.run(debug=True)
