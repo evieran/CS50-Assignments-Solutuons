@@ -127,6 +127,9 @@ def buy():
         db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
                    session["user_id"], symbol, shares, quote["price"])
 
+        # Assume that `shares` is the number of shares and `stock_price` is the current stock price
+        total_cost = shares * stock_price
+
         flash(f"Bought {shares} shares of {symbol} for {usd(total_cost)}!")
 
         return redirect("/")
