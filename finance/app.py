@@ -143,10 +143,10 @@ def buy():
               return apology("invalid symbol")
 
           # Calculate total purchase value
-          total_value = shares * quote["price"]
+          total_cost = shares * quote["price"]
 
           # Ensure user has enough cash
-          if total_value > cash:
+          if total_cost > cash:
               return apology("not enough cash")
 
           # Update users table
@@ -156,7 +156,7 @@ def buy():
           # Insert transaction into database
           db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)", session["user_id"], quote["symbol"], shares, quote["price"])
 
-          flash(f"Bought {shares} shares of {symbol} for {usd(total_cost)}!")
+          flash(f"Bought {shares} shares of {quote['symbol']} for {usd(total_cost)}!")
 
           # Redirect to home page
           return redirect("/")
