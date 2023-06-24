@@ -31,14 +31,14 @@ db.execute("""
         shares INTEGER,
         price NUMERIC,
         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES user (id)
+        FOREIGN KEY (user_id) REFERENCES user (user_id)
     )
 """)
 
 # Create the user table if it doesn't exist
 db.execute("""
     CREATE TABLE IF NOT EXISTS user (
-        user_id INTEGER,
+        user_id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
         password_hash TEXT NOT NULL,
         cash REAL DEFAULT 10000.00
