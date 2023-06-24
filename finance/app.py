@@ -23,10 +23,6 @@ Session(app)
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///finance.db")
 
-def usd(value):
-    """Format value as USD."""
-    return locale.currency(value, grouping=True)
-
 @app.after_request
 def after_request(response):
     """Ensure responses aren't cached"""
