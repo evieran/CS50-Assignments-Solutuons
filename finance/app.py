@@ -230,7 +230,27 @@ def quote():
         quote = lookup(symbol)
         if not quote:
             return apology("invalid symbol", 400)
-        return render_template("quote.html", quote-quote)
+
+        total_cost = quote["price"]
+
+        # Calculate the total cost based on the quote
+        cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])[0]["cash"]
+
+        if total_cost > cash:
+            return apology("not enough cash", 400)
+
+        # Update user's cash
+        db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_cost, session["user_id"])
+
+        # Insert transaction into database
+        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
+                   session["user_id"], quote["symbol"], 1, quote["price"])
+
+        flash(f"Bought 1 share of {quote['symbol']} for {usd(total_cost)}!")
+
+        # Redirect to home page
+        return redirect("/")
+
     else:
         return render_template("quote.html")
 
