@@ -285,4 +285,5 @@ def sell():
        return render_template("sell.html", symbols=[stock["symbol"] for stock in symbols])
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.debug = True
+    app.run()
