@@ -160,8 +160,8 @@ def buy():
 
           # Redirect to home page
           return redirect("/")
-    
-CREATE TABLE users (
+
+    CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
     password_hash TEXT NOT NULL,
