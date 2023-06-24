@@ -139,8 +139,9 @@ def buy():
           if total_value > cash:
               return apology("not enough cash")
 
-          # Update user's cash
-          db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_value, session["user_id"])
+          # Update users table
+          db.execute("UPDATE users SET cash = cash - :total_cost WHERE id = :user_id",
+                     total_cost=total_cost, user_id=session["user_id"])
 
           # Insert transaction into database
           db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)", session["user_id"], quote["symbol"], shares, quote["price"])
