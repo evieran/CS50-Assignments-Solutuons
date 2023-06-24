@@ -240,8 +240,11 @@ def quote():
         if quote is None:
             return apology("invalid symbol")
 
+        # Extract price from quote
+        price = quote.get("price")
+
         # Display stock information
-        return render_template("quoted.html", quote=quote)
+        return render_template("quoted.html", symbol=symbol, price=price)
 
     # User reached route via GET
     else:
