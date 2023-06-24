@@ -54,12 +54,14 @@ def register():
         # Query databse for username
         rows = db.execute("SELECT" * FROM users WHERE username = ?", request.form.get("username"))
 
-        if len(rows) !=
+        if len(rows) != 0:
+            return apology("username already exists", 400)
 
-        if not new_user_id:
-            return apology("username already exists")
+        db.execute("INSERT INTO users (username, hash) VALUES(?, ?)",
+                   request.form.get("username"), generate_password_hash(request.form.get("password")))
+        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
-        session["user_id"] = new_user_id
+        session["user_id"] = rows[0]["id"]
         return redirect("/")
 
     else:
