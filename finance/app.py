@@ -52,7 +52,7 @@ def register():
             return apology("password must match", 400)
 
         # Query databse for username
-        rows = db.execute("SELECT" * FROM users WHERE username = ?", request.form.get("username"))
+        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
         if len(rows) != 0:
             return apology("username already exists", 400)
