@@ -49,10 +49,12 @@ def register():
         elif not request.form.get("password"):
             return apology("must provide password", 400)
         elif request.form.get("password") != request.form.get("confirmation"):
-            return apology("password must match")
+            return apology("password must match", 400)
 
-        hash = generate_password_hash(request.form.get("password"))
-        new_user_id = db.execute("INSERT INTO users (username, hash) VALUES(?, ?)", request.form.get("username"), hash)
+        # Query databse for username
+        rows = db.execute("SELECT" * FROM users WHERE username = ?", request.form.get("username"))
+
+        if len(rows) !=
 
         if not new_user_id:
             return apology("username already exists")
