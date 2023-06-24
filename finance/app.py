@@ -247,6 +247,14 @@ def quote():
         # Display stock information
         return render_template("quoted.html", symbol=symbol, price=price)  # <-- Pass symbol here
 
+    # Lookup stock information
+    quote = lookup(symbol)
+    print(f'Quote data: {quote}') # Log the quote data
+
+    # Ensure symbol is valid
+    if quote is None:
+    return apology("invalid symbol")
+
     # User reached route via GET
     else:
         return render_template("quote.html")
