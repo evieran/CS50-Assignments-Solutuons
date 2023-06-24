@@ -37,49 +37,38 @@ def register():
     # Forget any user_id
     session.clear()
 
-    # User reached route cia POST
+    # User reached route via POST
     if request.method == "POST":
 
-        # Ensure username was submitted
-        if not request.form.get("username"):
+        # Validate form input
+        username = request.form.get("username")
+        password = request.form.get("password")
+        confirmation = request.form.get("confirmation")
+
+        if not username:
             return apology("must provide username", 400)
-
-        # Ensure password was submitted
-        elif not request.form.get("password"):
+        if not password:
             return apology("must provide password", 400)
-
-        # Ensure password confirmation was submitted
-        elif not request.form.get("confirmation"):
+        if not confirmation:
             return apology("must confirm password", 400)
+        if password != confirmation:
+            return apology("passwords must match", 400)
 
-        # Ensure password and confirmation match
-        elif request.form.get("password") != request.form.get("confirmation"):
-            return apology("password must match", 400)
-
-        # Query databse for username
-        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
-
-        #Ensure username does not already exist
-        if len(rows) != 0:
+        # Check if username already exists
+        rows = db.execute("SELECT * FROM users WHERE username = ?", username)
+        if rows:
             return apology("username already exists", 400)
 
         # Insert new user into database
-        db.execute("INSERT INTO users (username, hash, cash) VALUES (?, ?, 10000)",
-           request.form.get("username"), generate_password_hash(request.form.get("password")))
+        db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, generate_password_hash(password))
 
-        # Query database for newly inserted user
-        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
+        # Redirect user to login page
+        flash("Registered successfully! Please log in.")
+        return redirect("/login")
 
-        #Remember which user has logged in
-        session["user_id"] = rows[0]["id"]
-
-        # Redirect user to home page
-        return redirect("/")
-
-    # user reached route via GET
+    # User reached route via GET
     else:
         return render_template("register.html")
-
 
 @app.route("/")
 @login_required
