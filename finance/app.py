@@ -22,18 +22,6 @@ Session(app)
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///finance.db")
 
-# Create the transactions table if it doesn't exist
-db.execute("""
-    CREATE TABLE IF NOT EXISTS transactions (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id INTEGER,
-        symbol TEXT,
-        shares INTEGER,
-        price NUMERIC,
-        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES user (user_id)
-    )
-""")
 
 # Create the user table if it doesn't exist
 db.execute("""
