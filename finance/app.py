@@ -1,4 +1,5 @@
 import os
+import locale
 
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
@@ -21,6 +22,10 @@ Session(app)
 
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///finance.db")
+
+def usd(value):
+    """Format value as USD."""
+    return locale.currency(value, grouping=True)
 
 @app.after_request
 def after_request(response):
