@@ -122,8 +122,7 @@ def buy():
           db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_value, session["user_id"])
 
           # Insert transaction into database
-          db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
-                   session["user_id"], quote["symbol"], shares, quote["price"])
+          db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)", session["user_id"], quote["symbol"], shares, quote["price"])
 
           # Redirect to home page
           return redirect("/")
@@ -246,8 +245,7 @@ def sell():
             return apology("invalid symbol")
 
         # Query database for user's shares of the stock
-        user_shares = db.execute("SELECT SUM(shares) as total_shares FROM transactions WHERE user_id = ? AND symbol = ?",
-                                 session["user_id"], quote["symbol"])
+        user_shares = db.execute("SELECT SUM(shares) as total_shares FROM transactions WHERE user_id = ? AND symbol = ?", session["user_id"], quote["symbol"])
 
         # Ensure user has enough shares to sell
         if not user_shares or user_shares[0]["total_shares"] < shares:
