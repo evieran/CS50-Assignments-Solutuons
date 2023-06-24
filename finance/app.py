@@ -63,8 +63,7 @@ def register():
 @login_required
 def index():
     """Show portfolio of stocks"""
-    stocks = db.execute
-    ("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = ? GROUP BY symbol HAVING total_shares > 0", session["user_id"])
+    stocks = db.execute("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = ? GROUP BY symbol HAVING total_shares > 0", session["user_id"])
     total_value = 0
 
     for stock in stocks:
