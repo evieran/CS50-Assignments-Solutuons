@@ -309,6 +309,8 @@ def sell():
             VALUES (?, ?, ?, ?)
         """, session["user_id"], symbol, -shares, stock_info["price"])
 
+        flash(f"Sold {shares} shares of {symbol} for {usd(stock_info['price'] * shares)}!")
+
         # Redirect to index page
         return redirect("/")
 
