@@ -86,7 +86,7 @@ def register():
 def index():
     """Show portfolio of stocks"""
     # Get user's stocks and shares
-    stocks = db.execute("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = :user_id GROUP BY symbol HAVING total_shares > 0"
+    stocks = db.execute("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = :user_id GROUP BY symbol HAVING total_shares > 0",
                         user_id=session["user_id"])
 
     # Get user's cash balance
