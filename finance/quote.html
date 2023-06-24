@@ -1,12 +1,7 @@
-{% extends "layout.html" %}
-
-{% block main %}
-    <form action="/quote" method="post">
-        <div>
-            <input type="text" name="symbol" placeholder="Symbol" required>
-        </div>
-        <div>
-            <input type="submit" value="Get Quote">
-        </div>
-    </form>
-{% endblock %}
+<h1>Quote</h1>
+<form action="{{ url_for('quote') }}" method="post">
+    <label for="symbol">Symbol:</label>
+    <input type="text" name="symbol" id="symbol">
+    <br>
+    <button type="submit" class="btn btn-primary">Get Quote</button>
+</form>
