@@ -208,9 +208,10 @@ def quote():
     else:
         return render_template("quote.html")
 
-
 @app.route("/sell", methods=["GET", "POST"])
-"""Sell shares of stock"""
+@login_required
+def sell():
+    """Sell shares of stock"""
     if request.method == "POST":
         symbol = request.form.get("symbol")
         try:
