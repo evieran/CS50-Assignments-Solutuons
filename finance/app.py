@@ -85,16 +85,28 @@ def register():
 @login_required
 def index():
     """Show portfolio of stocks"""
-    stocks = db.execute("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = ? GROUP BY symbol HAVING total_shares > 0", session["user_id"])
-    total_value = 0
+    # Get user's stocks and shares
+    stocks = db.execute("SELECT symbol, SUM(shares) as total_shares FROM transactions WHERE user_id = :user_id GROUP BY symbol HAVING total_shares > 0"
+                        user_id=session["user_id"])
 
+    # Get user's cash balance
+    cash = db.execute("SELECT cash FROM users WHERE id = :user_id", user_id=session["user_id"])[0]["cash"]
+
+    #Initiatilize variable for total values
+    total_value = cash
+    grand_value = cash
+
+    # Iterate over stocks and add price and total value
     for stock in stocks:
         quote = lookup(stock["symbol"])
+        stock["name"] = quote["name"]
         stock["price"] = quote["price"]
-        stock["total"] = stock["total_shares"] * quote["price"]
-        total_value += stock["total"]
+        stock["value"] = stock["price"] * stock["total_shares"]
+        total_value += stock["value"]
+        grand_total += stock["value"]
 
-    return render_template("index.html", stocks=stocks, total_value=total_value)
+    return rendter_template("index.html", stocks=stocks, cash=cash, total_value=total_value, grand_value=grand_value)
+
 
 
 @app.route("/buy", methods=["GET", "POST"])
@@ -147,7 +159,7 @@ def buy():
           db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)", session["user_id"], quote["symbol"], shares, quote["price"])
 
           flash(f"Bought {shares} shares of {symbol} for {usd(total_cost)}!")
-          
+
           # Redirect to home page
           return redirect("/")
 
