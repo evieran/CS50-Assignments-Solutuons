@@ -248,7 +248,7 @@ def quote():
 
     # User reached route via GET
     else:
-        return render_template("quote.html")
+        return render_template("quote.html", quote=quote)
 
 
 @app.route("/sell", methods=["GET", "POST"])
