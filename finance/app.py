@@ -92,9 +92,9 @@ def index():
     # Get user's cash balance
     cash = db.execute("SELECT cash FROM users WHERE id = :user_id", user_id=session["user_id"])[0]["cash"]
 
-    #Initiatilize variable for total values
+    # Initialize variables for total values
     total_value = cash
-    grand_value = cash
+    grand_total = cash
 
     # Iterate over stocks and add price and total value
     for stock in stocks:
@@ -106,7 +106,6 @@ def index():
         grand_total += stock["value"]
 
     return render_template("index.html", stocks=stocks, cash=cash, total_value=total_value, grand_total=grand_total)
-
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
