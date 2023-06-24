@@ -161,16 +161,18 @@ def buy():
           # Redirect to home page
           return redirect("/")
 
-    CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL,
-    password_hash TEXT NOT NULL,
-    cash REAL DEFAULT 10000.00
-);
-
     # User reached route via GET
     else:
         return render_template("buy.html")
+
+db.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT NOT NULL,
+        password_hash TEXT NOT NULL,
+        cash REAL DEFAULT 10000.00
+    )
+""")
 
 
 @app.route("/history")
