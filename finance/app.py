@@ -99,9 +99,6 @@ def index():
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
 def buy():
-    @app.route("/buy", methods=["GET", "POST"])
-@login_required
-def buy():
     if request.method == "POST":
         symbol = request.form.get("symbol")
         try:
