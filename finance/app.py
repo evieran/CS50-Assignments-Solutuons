@@ -33,6 +33,7 @@ db.execute("""
     )
 """)
 
+# Create the transactions table
 db.execute("""
     CREATE TABLE IF NOT EXISTS transactions (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -41,7 +42,7 @@ db.execute("""
         shares INTEGER,
         price NUMERIC,
         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES user (user_id)
+        FOREIGN KEY (user_id) REFERENCES user (id)
     )
 """)
 
