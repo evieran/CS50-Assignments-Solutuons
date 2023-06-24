@@ -2,6 +2,11 @@ import os
 import logging
 
 logging.basicConfig(filename='app.log', level=logging.DEBUG)
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.DEBUG)
+
+file_handler = logging.FileHandler('app.log')
+log.addHandler(file_handler)
 
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
