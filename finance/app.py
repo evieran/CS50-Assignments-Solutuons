@@ -220,7 +220,7 @@ def quote():
         return render_template("quote.html", quote-quote)
     else:
         return render_template("quote.html")
-    
+
 
 @app.route("/sell", methods=["GET", "POST"])
 @login_required
