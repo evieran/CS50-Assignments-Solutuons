@@ -64,8 +64,8 @@ def register():
             return apology("username already exists", 400)
 
         # Insert new user into database
-        db.execute("INSERT INTO users (username, hash) VALUES(?, ?)",
-                   request.form.get("username"), generate_password_hash(request.form.get("password")))
+        db.execute("INSERT INTO users (username, hash, cash) VALUES (?, ?, 10000)",
+           request.form.get("username"), generate_password_hash(request.form.get("password")))
 
         # Query database for newly inserted user
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
