@@ -97,8 +97,6 @@ def index():
 
     return render_template("index.html", stocks=stocks, cash=cash, total_value=total_value, grand_total=grand_total)
 
-@app.route("/buy", methods=["GET", "POST"])
-@login_required
 def buy():
     """Buy shares of stock"""
     if request.method == "POST":
@@ -123,7 +121,7 @@ def buy():
 
         # Calculate the total purchase cost
         stock_price = stock_info["price"]
-        total_cost = shares * stock_price
+        total_cost = decimal(shares * stock_price)
 
         # Check user's cash balance
         rows = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
@@ -140,7 +138,7 @@ def buy():
         db.execute("""
             INSERT INTO transactions (user_id, symbol, shares, price)
             VALUES (?, ?, ?, ?)
-        """, session["user_id"], symbol, shares, stock_price)
+        """, session["user_id"], symbol, shares, decimal(stock_price))
 
         # Redirect user to home page
         return redirect("/")
