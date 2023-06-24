@@ -100,42 +100,56 @@ def index():
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
 def buy():
+    """Buy shares of stock"""
     if request.method == "POST":
+
+        # Ensure the symbol was submitted
         symbol = request.form.get("symbol")
+        if not symbol:
+            return apology("must provide symbol", 400)
+
+        # Ensure the shares were submitted
         try:
             shares = int(request.form.get("shares"))
+            if shares < 1:
+                return apology("shares must be a positive integer", 400)
         except ValueError:
             return apology("shares must be a positive integer", 400)
 
-        if not symbol or shares < 1:
-            return apology("invalid symbol or shares", 400)
-
-        quote = lookup(symbol)
-        if not quote:
+        # Lookup the stock symbol
+        stock_info = lookup(symbol)
+        if stock_info is None:
             return apology("invalid symbol", 400)
 
-        total_cost = quote["price"] * shares
-        cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])[0]["cash"]
+        # Calculate the total purchase cost
+        stock_price = stock_info["price"]
+        total_cost = shares * stock_price
 
+        # Check user's cash balance
+        rows = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
+        cash = rows[0]["cash"]
+
+        # Check if the user has enough cash to buy the shares
         if total_cost > cash:
             return apology("not enough cash", 400)
 
         # Update user's cash
         db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_cost, session["user_id"])
 
-        # Insert buy transaction into database
-        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
-                   session["user_id"], symbol, shares, quote["price"])
+        # Insert the transaction into the database
+        db.execute("""
+            INSERT INTO transactions (user_id, symbol, shares, price)
+            VALUES (?, ?, ?, ?)
+        """, session["user_id"], symbol, shares, stock_price)
 
-        # Assume that `shares` is the number of shares and `stock_price` is the current stock price
-        total_cost = shares * stock_price
-
-        flash(f"Bought {shares} shares of {symbol} for {usd(total_cost)}!")
-
+        # Redirect user to home page
         return redirect("/")
+
+    # User reached route via GET
     else:
         return render_template("buy.html")
 
+    
 @app.route("/history")
 @login_required
 def history():
