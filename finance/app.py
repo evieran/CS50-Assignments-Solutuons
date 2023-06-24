@@ -2,6 +2,7 @@ import os
 import logging
 
 logging.basicConfig(filename='app.log', level=logging.DEBUG)
+app.debug = True
 
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
