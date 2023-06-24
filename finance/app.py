@@ -142,12 +142,12 @@ def buy():
             """
             INSERT INTO transactions (user_id, symbol, shares, price)
             VALUES (:user_id, :symbol, :shares, :price)
-        """,
+            """,
             user_id=session["user_id"],
             symbol=symbol,
-            shares=10,
+            shares=shares,
             price=decimal.Decimal(stock_price),
-        )
+         )
 
         # Redirect user to home page
         return redirect("/")
