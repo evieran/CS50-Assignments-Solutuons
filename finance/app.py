@@ -26,7 +26,7 @@ db = SQL("sqlite:///finance.db")
 # Create the user table if it doesn't exist
 db.execute("""
     CREATE TABLE IF NOT EXISTS user (
-        user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
         password_hash TEXT NOT NULL,
         cash REAL DEFAULT 10000.00
