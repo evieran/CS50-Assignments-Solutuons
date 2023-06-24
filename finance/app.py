@@ -226,34 +226,28 @@ def logout():
 @login_required
 def quote():
     """Get stock quote."""
+
     # User reached route via POST
     if request.method == "POST":
 
         # Ensure symbol was submitted
-        symbol = request.form.get("symbol")  # <-- Make sure you have this line
+        symbol = request.form.get("symbol")
         if not symbol:
             return apology("must provide symbol")
 
         # Lookup stock information
         quote = lookup(symbol)
+        print(f'Quote data: {quote}') # Log the quote data
 
         # Ensure symbol is valid
         if quote is None:
             return apology("invalid symbol")
 
-        # Extract price from quote
-        price = quote.get("price")  # Assuming quote is a dictionary with a 'price' key
+        # Extract price from quote assuming quote is a dictionary with a 'price' key
+        price = quote.get("price")
 
         # Display stock information
-        return render_template("quoted.html", symbol=symbol, price=price)  # <-- Pass symbol here
-
-    # Lookup stock information
-    quote = lookup(symbol)
-    print(f'Quote data: {quote}') # Log the quote data
-
-    # Ensure symbol is valid
-    if quote is None:
-    return apology("invalid symbol")
+        return render_template("quoted.html", symbol=symbol, price=price)
 
     # User reached route via GET
     else:
