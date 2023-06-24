@@ -1,10 +1,10 @@
-% extends "layout.html" %}
+{% extends "layout.html" %}
 
 {% block title %}
     Portfolio
 {% endblock %}
 
-{% block content %}
+{% block main %}
     <h1>Portfolio</h1>
 
     <h2>Stocks</h2>
@@ -14,25 +14,22 @@
             <th>Name</th>
             <th>Shares</th>
             <th>Price</th>
-            <th>Value</th>
+            <th>Total Value</th>
         </tr>
         {% for stock in stocks %}
         <tr>
             <td>{{ stock["symbol"] }}</td>
             <td>{{ stock["name"] }}</td>
             <td>{{ stock["total_shares"] }}</td>
-            <td>{{ stock["price"] }}</td>
-            <td>{{ stock["value"] }}</td>
+            <td>{{ stock["price"]|usd }}</td>
+            <td>{{ stock["total_value"]|usd }}</td>
         </tr>
         {% endfor %}
     </table>
 
     <h2>Cash Balance</h2>
-    <p>{{ cash }}</p>
+    <p>{{ cash|usd }}</p>
 
-    <h2>Total Value</h2>
-    <p>{{ total_value }}</p>
-
-    <h2>Grand Total</h2>
-    <p>{{ grand_total }}</p>
+    <h2>Total Portfolio Value</h2>
+    <p>{{ total_value|usd }}</p>
 {% endblock %}
