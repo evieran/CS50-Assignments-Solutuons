@@ -35,7 +35,8 @@ db.execute("""
 
 db.execute("""
     CREATE TABLE IF NOT EXISTS transactions (
-        user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
         symbol TEXT,
         shares INTEGER,
         price NUMERIC,
