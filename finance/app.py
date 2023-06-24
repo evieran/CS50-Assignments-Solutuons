@@ -99,6 +99,9 @@ def index():
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
 def buy():
+    @app.route("/buy", methods=["GET", "POST"])
+@login_required
+def buy():
     if request.method == "POST":
         symbol = request.form.get("symbol")
         try:
@@ -114,21 +117,21 @@ def buy():
             return apology("invalid symbol", 400)
 
         total_cost = quote["price"] * shares
-        user_cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])[0]["cash"]
+        cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])[0]["cash"]
 
-        if total_cost > user_cash:
+        if total_cost > cash:
             return apology("not enough cash", 400)
 
         # Update user's cash
         db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_cost, session["user_id"])
 
-        # Insert transaction into database
-        db.execute("INSERT INTO transactions (user_id, symbol, shares, price, timestamp) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)",
+        # Insert buy transaction into database
+        db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)",
                    session["user_id"], symbol, shares, quote["price"])
 
-        # Redirect to home page
-        return redirect("/")
+        flash(f"Bought {shares} shares of {symbol} for {usd(total_cost)}!")
 
+        return redirect("/")
     else:
         return render_template("buy.html")
 
