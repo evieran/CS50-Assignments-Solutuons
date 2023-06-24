@@ -41,7 +41,7 @@ db.execute("""
             shares INTEGER,
             price NUMERIC,
             timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES user (id)
+            FOREIGN KEY (username) REFERENCES user (id)
     )
 """)
 
