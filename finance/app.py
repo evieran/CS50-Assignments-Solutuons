@@ -239,4 +239,24 @@ def quote():
             return apology("invalid symbol", 400)
 
         # Update user's cash
-        db.execute("UPDATE users SET cash = cash + ? WHERE id
+        db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", stock_info["price"] * shares, session["user_id"])
+
+        # Insert sell transaction into database
+        db.execute("INSERT INTO transactions (user_id, symbol, shares, price, timestamp) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)",
+                   session["user_id"], symbol, -shares, stock_info["price"])
+
+        # Redirect to index page
+        return redirect("/")
+
+    else:
+        # Query database for user's stocks
+        symbols = db.execute("""
+            SELECT DISTINCT symbol
+            FROM transactions
+            WHERE user_id = ?
+        """, session["user_id"])
+
+        return render_template("sell.html", symbols=[stock["symbol"] for stock in symbols])
+
+if __name__ == "__main__":
+    app.run(debug=True)
