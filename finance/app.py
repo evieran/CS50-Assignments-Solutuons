@@ -97,8 +97,6 @@ def index():
 
     return render_template("index.html", stocks=stocks, cash=cash, total_value=total_value, grand_total=grand_total)
 
-@app.route("/buy", methods=["GET", "POST"])
-@login_required
 def buy():
     """Buy shares of stock"""
     if request.method == "POST":
@@ -137,10 +135,11 @@ def buy():
         db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_cost, session["user_id"])
 
         # Insert the transaction into the database
+        now = datetime.datetime.now()
         db.execute("""
-            INSERT INTO transactions (user_id, symbol, shares, price)
-            VALUES (?, ?, ?, ?)
-        """, session["user_id"], symbol, shares, stock_price)
+            INSERT INTO transactions (user_id, symbol, shares, price, timestamp)
+            VALUES (?, ?, ?, ?, ?)
+        """, session["user_id"], symbol, shares, stock_price, now)
 
         # Redirect user to home page
         return redirect("/")
@@ -149,7 +148,7 @@ def buy():
     else:
         return render_template("buy.html")
 
-
+    
 @app.route("/history")
 @login_required
 def history():
