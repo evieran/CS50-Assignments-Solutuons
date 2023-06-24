@@ -112,10 +112,12 @@ def buy():
         # Ensure the shares were submitted
         try:
             shares = int(request.form.get("shares"))
+            if not isinstance(shares, int):
+                return apology("shares must be an integer", 400)
             if shares < 1:
                 return apology("shares must be a positive integer", 400)
         except ValueError:
-            return apology("shares must be a positive integer", 400)
+            return apology("shares must be an integer", 400)
 
         # Lookup the stock symbol
         stock_info = lookup(symbol)
