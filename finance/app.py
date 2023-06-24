@@ -32,6 +32,18 @@ db.execute("""
     )
 """)
 
+# Create the transcation table if it doesn't exist
+db.execute("""
+        CREATE TABLE IF NOT EXISTS transactions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER,
+            symbol TEXT,
+            shares INTEGER,
+            price NUMERIC,
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES user (id)
+    )
+""")
 
 @app.after_request
 def after_request(response):
@@ -91,18 +103,6 @@ def register():
     else:
         return render_template("register.html")
 
-# Create the transcation table if it doesn't exist
-db.execute("""
-        CREATE TABLE IF NOT EXISTS transactions (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER,
-            symbol TEXT,
-            shares INTEGER,
-            price NUMERIC,
-            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES user (id)
-    )
-""")
 
 @app.route("/")
 @login_required
