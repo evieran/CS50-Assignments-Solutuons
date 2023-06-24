@@ -259,7 +259,7 @@ def sell():
                    session["user_id"], quote["symbol"], -shares, quote["price"])
 
         # Redirect to home page
-        return redirect("/"
+        return redirect("/")
 
     # User reached route via GET
     else:
