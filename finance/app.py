@@ -43,10 +43,9 @@ def after_request(response):
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
-    logging.debug("Register function is called")
     if request.method == "POST":
         if not request.form.get("username"):
-            return apology("must provide username")
+            return apology("must provide username", 400)
         elif not request.form.get("password"):
             return apology("must provide password")
         elif request.form.get("password") != request.form.get("confirmation"):
