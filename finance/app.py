@@ -124,7 +124,7 @@ def buy():
 
         # Calculate the total purchase cost
         stock_price = stock_info["price"]
-        total_cost = shares * decimal(stock_price)
+        total_cost = shares * decimal.Decimal(shares * stock_price)
 
         # Check user's cash balance
         rows = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
