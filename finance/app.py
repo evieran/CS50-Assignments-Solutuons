@@ -81,8 +81,11 @@ def register():
 
         #Remember which user has logged in
         session["user_id"] = rows[0]["id"]
+
+        # Redirect user to home page
         return redirect("/")
 
+    # user reached route via GET 
     else:
         return render_template("register.html")
 
