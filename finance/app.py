@@ -109,62 +109,41 @@ def index():
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
+@app.route("/buy", methods=["GET", "POST"])
+@login_required
 def buy():
-    """Show portfolio of stocks"""
-
-    # User reached route via POST
     if request.method == "POST":
+        symbol = request.form.get("symbol")
+        try:
+            shares = int(request.form.get("shares"))
+        except ValueError:
+            return apology("shares must be a positive integer", 400)
 
-          # Ensure symbol was submitted
-          if not request.form.get("symbol"):
-              return apology("must provide symbol")
+        if not symbol or shares < 1:
+            return apology("invalid symbol or shares", 400)
 
-          # Ensure shares was submitted
-          elif not request.form.get("shares"):
-              return apology("must provide number of shares")
+        quote = lookup(symbol)
+        if not quote:
+            return apology("invalid symbol", 400)
 
-          # Ensure shares is a positive integer
-          try:
-              shares = int(request.form.get("shares"))
-              if shares < 1:
-                  return apology("shares must be a positive integer")
-          except ValueError:
-              return apology("shares must be a positive integer")
+        total_cost = quote["price"] * shares
+        user_cash = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])[0]["cash"]
 
-          # Query database for user's cash
-          rows = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
-          cash = rows[0]["cash"]
+        if total_cost > user_cash:
+            return apology("not enough cash", 400)
 
-          # Lookup stock information
-          quote = lookup(request.form.get("symbol"))
+        # Update user's cash
+        db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_cost, session["user_id"])
 
-          # Ensure symbol is valid
-          if quote is None:
-              return apology("invalid symbol")
+        # Insert transaction into database
+        db.execute("INSERT INTO transactions (user_id, symbol, shares, price, timestamp) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)",
+                   session["user_id"], symbol, shares, quote["price"])
 
-          # Calculate total purchase value
-          total_cost = shares * quote["price"]
+        # Redirect to home page
+        return redirect("/")
 
-          # Ensure user has enough cash
-          if total_cost > cash:
-              return apology("not enough cash")
-
-          # Update users table
-          db.execute("UPDATE users SET cash = cash - :total_cost WHERE id = :user_id",
-                     total_cost=total_cost, user_id=session["user_id"])
-
-          # Insert transaction into database
-          db.execute("INSERT INTO transactions (user_id, symbol, shares, price) VALUES (?, ?, ?, ?)", session["user_id"], quote["symbol"], shares, quote["price"])
-
-          flash(f"Bought {shares} shares of {quote['symbol']} for {usd(total_cost)}!")
-
-          # Redirect to home page
-          return redirect("/")
-
-    # User reached route via GET
     else:
         return render_template("buy.html")
-
 
 @app.route("/history")
 @login_required
