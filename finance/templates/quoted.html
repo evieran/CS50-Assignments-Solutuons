@@ -1,3 +1,17 @@
-<h1>Stock Quote</h1>
-<p>{{ quote }}: {{ quote }}</p>
-<a href="{{ url_for('quote') }}">Look up another stock</a>
+{% extends "layout.html" %}
+
+{% block title %}
+    Stock Quote
+{% endblock %}
+
+{% block main %}
+    <h1>Stock Quote</h1>
+    {% if quote %}
+        <h3>{{ quote['name'] }} ({{ quote['symbol'] }})</h3>
+        <p>Price: {{ quote['price']|usd }}</p>
+    {% endif %}
+    <div>
+        <a href="{{ url_for('quote') }}">Look up another stock</a>
+    </div>
+{% endblock %}
+

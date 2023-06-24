@@ -7,10 +7,16 @@
 {% block main %}
     <h1>Buy</h1>
     <form action="{{ url_for('buy') }}" method="post">
-        <label for="symbol">Symbol:</label>
-        <input type="text" name="symbol" id="symbol">
-        <br>
-        <label for="shares">Shares:</label>
-        <input type="submit" value="Buy">
+        <div>
+            <label for="symbol">Symbol:</label>
+            <input type="text" name="symbol" id="symbol">
+        </div>
+        <div>
+            <label for="shares">Shares:</label>
+            <input type="number" name="shares" id="shares" min="1">
+        </div>
+        <div>
+            <input type="submit" value="Buy">
+        </div>
     </form>
 {% endblock %}
