@@ -230,26 +230,26 @@ def quote():
     if request.method == "POST":
 
         # Ensure symbol was submitted
-        if not request.form.get("symbol"):
+        symbol = request.form.get("symbol")  # <-- Make sure you have this line
+        if not symbol:
             return apology("must provide symbol")
 
         # Lookup stock information
-        quote = lookup(request.form.get("symbol"))
+        quote = lookup(symbol)
 
         # Ensure symbol is valid
         if quote is None:
             return apology("invalid symbol")
 
         # Extract price from quote
-        price = quote.get("price")
+        price = quote.get("price")  # Assuming quote is a dictionary with a 'price' key
 
         # Display stock information
-        return render_template("quoted.html", symbol=symbol, price=price)
+        return render_template("quoted.html", symbol=symbol, price=price)  # <-- Pass symbol here
 
     # User reached route via GET
     else:
-        return render_template("quote.html", quote=quote)
-
+        return render_template("quote.html")
 
 @app.route("/sell", methods=["GET", "POST"])
 @login_required
