@@ -225,27 +225,7 @@ def logout():
 @app.route("/quote", methods=["GET", "POST"])
 @login_required
 def quote():
-    """Get stock quote."""
-    # User reached route via POST
-    if request.method == "POST":
-
-        # Ensure symbol was submitted
-        if not request.form.get("symbol"):
-            return apology("must provide symbol")
-
-        # Lookup stock information
-        quote = lookup(request.form.get("symbol"))
-
-        # Ensure symbol is valid
-        if quote is None:
-            return apology("invalid symbol")
-
-        # Display stock information
-        return render_template("quoted.html", quote=quote)
-
-    # User reached route via GET
-    else:
-        return render_template("quote.html")
+   finance/flask_session/2029240f6d1128be89ddc32729463129
 
 
 @app.route("/sell", methods=["GET", "POST"])
