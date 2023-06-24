@@ -138,10 +138,16 @@ def buy():
         db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_cost, session["user_id"])
 
         # Insert the transaction into the database
-        db.execute("""
+        db.execute(
+            """
             INSERT INTO transactions (user_id, symbol, shares, price)
-            VALUES (?, ?, ?, ?)
-        """, session["user_id"], symbol, 10, decimal(stock_price))
+            VALUES (:user_id, :symbol, :shares, :price)
+        """,
+            user_id=session["user_id"],
+            symbol=symbol,
+            shares=10,
+            price=decimal.Decimal(stock_price),
+        )
 
         # Redirect user to home page
         return redirect("/")
