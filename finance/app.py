@@ -235,47 +235,52 @@ def sell():
         try:
             shares = int(request.form.get("shares"))
         except ValueError:
-            return apology("shares must be a positive integer", 400)
+            return apology("Shares must be a positive integer", 400)
 
         if not symbol or shares < 1:
-            return apology("invalid symbol or shares", 400)
+            return apology("Invalid symbol or shares", 400)
 
         # Query database for user's shares of the stock
         stock = db.execute("""
             SELECT SUM(shares) as total_shares
             FROM transactions
             WHERE user_id = ? AND symbol = ?
-            GROUP by symbol
+            GROUP BY symbol
         """, session["user_id"], symbol)
 
         # Ensure user has enough shares to sell
         if not stock or stock[0]["total_shares"] < shares:
-            return apology("not enough shares", 400)
+            return apology("Not enough shares to sell", 400)
 
         # Get current price of the stock
         stock_info = lookup(symbol)
         if not stock_info:
-            return apology("invalid symbol", 400)
+            return apology("Invalid symbol", 400)
 
-        # Update user's cash
-        db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", stock_info["price"] * shares, session["user_id"])
+        # Calculate sell value and update user's cash
+        sell_value = stock_info["price"] * shares
+        db.execute("UPDATE users SET cash = cash + ? WHERE id = ?", sell_value, session["user_id"])
 
         # Insert sell transaction into database
-        db.execute("INSERT INTO transactions (user_id, symbol, shares, price, timestamp) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)",
-                   session["user_id"], symbol, -shares, stock_info["price"])
+        db.execute("""
+            INSERT INTO transactions (user_id, symbol, shares, price, timestamp)
+            VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+        """, session["user_id"], symbol, -shares, stock_info["price"])
 
         # Redirect to index page
         return redirect("/")
 
     else:
         # Query database for user's stocks
-        symbols = db.execute("""
-            SELECT DISTINCT symbol
+        stocks = db.execute("""
+            SELECT symbol
             FROM transactions
             WHERE user_id = ?
+            GROUP BY symbol
         """, session["user_id"])
 
-        return render_template("sell.html", symbols=[stock["symbol"] for stock in symbols])
+        symbols = [stock["symbol"] for stock in stocks]
+        return render_template("sell.html", symbols=symbols)
 
 if __name__ == "__main__":
     app.run(debug=True)
