@@ -148,6 +148,8 @@ def buy():
             total_cost,
         )
 
+        print("SQL Query:", query)  # Print the SQL query for review
+
         # Redirect user to home page
         return redirect("/")
 
