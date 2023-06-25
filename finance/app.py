@@ -121,7 +121,10 @@ def buy():
 
         # Calculate the total purchase cost
         stock_price = stock_info["price"]
-        total_cost = shares * stock_price
+        total_cost = float(shares) * float(stock_price)
+
+        # Debugging: print total_cost
+        print("Total Cost:", total_cost)
 
         # Check user's cash balance
         user_id = session["user_id"]
@@ -130,7 +133,7 @@ def buy():
 
         # Check if the user has enough cash to buy the shares
         if total_cost > cash:
-        return apology("not enough cash", 400)
+            return apology("not enough cash", 400)
 
         # Update user's cash
         new_cash = cash - total_cost
