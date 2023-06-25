@@ -92,9 +92,10 @@ def index():
         quote = lookup(stock["symbol"])
         stock["name"] = quote["name"]
         stock["price"] = quote["price"]
-        stock["value"] = stock["price"] * stock["total_shares"]
-        total_value += stock["value"]
-        grand_total += stock["value"]
+        stock["total_value"] = stock["price"] * stock["total_shares"]
+        total_value += stock["total_value"]
+        grand_total += stock["total_value"]
+
 
     return render_template("index.html", stocks=stocks, cash=cash, total_value=total_value, grand_total=grand_total)
 
@@ -132,7 +133,7 @@ def buy():
         user_id = session["user_id"]
         rows = db.execute("SELECT cash FROM users WHERE id = ?", user_id)
         cash = rows[0]["cash"]
-        print("Cash:", cash)  
+        print("Cash:", cash)
 
         # Check if the user has enough cash to buy the shares
         if total_cost > cash:
