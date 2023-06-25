@@ -103,21 +103,16 @@ def index():
 def buy():
     """Buy shares of stock"""
     if request.method == "POST":
-
         # Ensure the symbol was submitted
         symbol = request.form.get("symbol")
         if not symbol:
             return apology("must provide symbol", 400)
 
         # Ensure the shares were submitted
-        try:
-            shares = int(request.form.get("shares"))
-            if not isinstance(shares, int):
-                return apology("shares must be an integer", 400)
-            if shares < 1:
-                return apology("shares must be a positive integer", 400)
-        except ValueError:
-            return apology("shares must be an integer", 400)
+        shares = request.form.get("shares")
+        if not shares.isdigit() or int(shares) < 1:
+            return apology("shares must be a positive integer", 400)
+        shares = int(shares)
 
         # Lookup the stock symbol
         stock_info = lookup(symbol)
@@ -126,10 +121,11 @@ def buy():
 
         # Calculate the total purchase cost
         stock_price = stock_info["price"]
-        total_cost = decimal.Decimal(shares * stock_price)
+        total_cost = decimal.Decimal(shares) * decimal.Decimal(stock_price)
 
         # Check user's cash balance
-        rows = db.execute("SELECT cash FROM users WHERE id = ?", session["user_id"])
+        user_id = session["user_id"]
+        rows = db.execute("SELECT cash FROM users WHERE id = ?", user_id)
         cash = rows[0]["cash"]
 
         # Check if the user has enough cash to buy the shares
@@ -137,19 +133,20 @@ def buy():
             return apology("not enough cash", 400)
 
         # Update user's cash
-        db.execute("UPDATE users SET cash = cash - ? WHERE id = ?", total_cost, session["user_id"])
+        new_cash = cash - total_cost
+        db.execute("UPDATE users SET cash = ? WHERE id = ?", new_cash, user_id)
 
         # Insert the transaction into the database
         db.execute(
             """
             INSERT INTO transactions (user_id, symbol, shares, price)
-            VALUES (:user_id, :symbol, :shares, :price)
+            VALUES (?, ?, ?, ?)
             """,
-            user_id=session["user_id"],
-            symbol=symbol,
-            shares=shares,
-            price=decimal.Decimal(stock_price),
-         )
+            user_id,
+            symbol,
+            shares,
+            total_cost,
+        )
 
         # Redirect user to home page
         return redirect("/")
@@ -157,7 +154,6 @@ def buy():
     # User reached route via GET
     else:
         return render_template("buy.html")
-
 
 @app.route("/history")
 @login_required
