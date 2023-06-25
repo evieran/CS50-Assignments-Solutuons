@@ -24,6 +24,7 @@ Session(app)
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///finance.db")
 
+
 @app.after_request
 def after_request(response):
     """Ensure responses aren't cached"""
@@ -72,6 +73,7 @@ def register():
     else:
         return render_template("register.html")
 
+
 @app.route("/")
 @login_required
 def index():
@@ -97,7 +99,8 @@ def index():
         grand_total += stock["total_value"]
 
 
-    return render_template("index.html", stocks=stocks, cash=cash, total_value=total_value, grand_total=grand_total)
+return render_template("index.html", stocks=stocks, cash=cash, total_value=total_value, grand_total=grand_total)
+
 
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
@@ -162,6 +165,7 @@ def buy():
     else:
         return render_template("buy.html")
 
+
 @app.route("/history")
 @login_required
 def history():
@@ -220,6 +224,7 @@ def logout():
     # Redirect user to login form
     return redirect("/")
 
+
 @app.route("/quote", methods=["GET", "POST"])
 @login_required
 def quote():
@@ -237,6 +242,7 @@ def quote():
 
     else:
         return render_template("quote.html")
+
 
 @app.route("/sell", methods=["GET", "POST"])
 @login_required
@@ -293,6 +299,7 @@ def sell():
 
         symbols = [stock["symbol"] for stock in stocks]
         return render_template("sell.html", symbols=symbols)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
