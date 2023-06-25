@@ -121,7 +121,7 @@ def buy():
 
         # Calculate the total purchase cost
         stock_price = stock_info["price"]
-        total_cost = shares * stock_price # Both shares and stock_price are now floats
+        total_cost = shares * stock_price
 
         # Check user's cash balance
         user_id = session["user_id"]
