@@ -121,7 +121,9 @@ def buy():
 
         # Calculate the total purchase cost
         stock_price = stock_info["price"]
+        print("Stock Price:", stock_price)
         total_cost = float(shares) * float(stock_price)
+        print("Total Cost:", total_cost)
 
         # Debugging: print total_cost
         print("Total Cost:", total_cost)
@@ -130,6 +132,7 @@ def buy():
         user_id = session["user_id"]
         rows = db.execute("SELECT cash FROM users WHERE id = ?", user_id)
         cash = rows[0]["cash"]
+        print("Cash:", cash)  
 
         # Check if the user has enough cash to buy the shares
         if total_cost > cash:
