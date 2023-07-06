@@ -268,7 +268,6 @@ def index():
     thought = None
     result = None
     daily_tip = get_daily_tip()
-    challenge = "Confront Your Fear"
 
     if request.method == 'POST':
         # Get thought from form
@@ -283,6 +282,8 @@ def index():
             }
         else:
             result = None
+            
+    random_challenge = get_random_challenge()  # Get a random challenge
 
     return render_template('index.html', result=result, thought=thought, daily_tip=daily_tip, challenge=challenge)
 

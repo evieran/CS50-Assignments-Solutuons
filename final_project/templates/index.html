@@ -46,19 +46,19 @@
                 </div>
             {% endif %}
 
-            <button type="button" id="challenge-btn" class="btn btn-warning mt-3">Confront Your Fear</button>
-        </div>
+            <button type="button" id="challenge-btn" class="btn btn-warning mt-3">{{ random_challenge }}</button>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('challenge-btn').addEventListener('click', function() {
-            // Perform some action when the button is clicked
-            // For example, you can display an alert with a random challenge text
-            var challengeText = "{{ get_random_challenge() }}";
-            alert(challengeText);
-        });
-    });
-    </script>
+            <script>
+             document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('challenge-btn').addEventListener('click', function() {
+                    // Perform some action when the button is clicked
+                    // For example, you can display an alert with the challenge text
+                    var challengeText = "{{ random_challenge }}";
+                    alert(challengeText);
+                });
+            });
+</script>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
