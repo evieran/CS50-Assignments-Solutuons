@@ -1,31 +1,49 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}Home{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Distortion Identifier</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
 
-{% block content %}
-    <h1 class="text-center">Cognitive Distortion Identifier</h1>
-    <p class="text-center">Enter your thought and let the chatbot help identify any cognitive distortions.</p>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Cognitive Distortion Identifier</h1>
+        <p class="text-center">This tool helps to identify cognitive distortions in your thoughts. Cognitive distortions are irrational thought patterns that can contribute to mental health issues such as anxiety and depression.</p>
 
-    <form action="/" method="post" class="mt-5">
-        <div class="form-group">
-            <label for="thought">Your Thought:</label>
-            <input type="text" class="form-control" id="thought" name="thought" required>
+        <div class="alert alert-info" role="alert">
+            <strong>Tip of the Day:</strong> {{ daily_tip }}
         </div>
+        
+        <form action="/" method="post" class="mt-5">
+            <div class="form-group">
+                <label for="thought">Your Thought:</label>
+                <input type="text" class="form-control" id="thought" name="thought" required>
+            </div>
 
-        <button type="submit" class="btn btn-primary">Identify Distortion</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Identify Distortion</button>
+        </form>
 
-    <div class="mt-5" id="results">
-        <!-- This is where the results from the chatbot will be displayed -->
-        {% if result %}
-                <h3>Your Thought:</h3>
-                <p>{{ thought }}</p>
-                <h3>Identified Distortion:</h3>
-                <p>{{ result.distortion }}</p>
-                <h3>Explanation:</h3>
-                <p>{{ result.explanation }}</p>
-                <h3>Reframe Suggestion:</h3>
-                <p>{{ result.reframe }}</p>
-        {% endif %}
+        <div class="mt-5" id="results">
+            <!-- Customized Feedback -->
+            {% if result %}
+                <h3>Result:</h3>
+                <p>In the thought: "{{ thought }}", we identified the cognitive distortion: {{ result['distortion'] }}.</p>
+                <p>Explanation: {{ result['explanation'] }}</p>
+                <p>Suggestion to reframe: {{ result['reframe'] }}</p>
+            {% elif result == None and thought %}
+                <!-- Error Handling -->
+                <p>We could not identify any cognitive distortion in the thought: "{{ thought }}". Please try different input.</p>
+            {% endif %}
+        </div>
     </div>
-{% endblock %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,15 +1,8 @@
-import sqlite3
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, flash, redirect, render_template, request
 import datetime
 import random
+
 app = Flask(__name__)
-
-# Connect to the SQLite database
-conn = sqlite3.connect('database.db')
-db = conn.cursor()
-
-# Create a table to store users
-db.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)')
 
 cognitive_distortions = {
     "black_and_white": {
@@ -73,6 +66,9 @@ def get_daily_tip():
     day_of_year = datetime.datetime.now().timetuple().tm_yday
     random.seed(day_of_year)
     return random.choice(daily_tips)
+
+# Dummy user data (In a real application, this data should be stored securely in a database)
+users = {"username": "password"}
 
 # For tracking progress
 user_progress = {}
@@ -141,60 +137,6 @@ if distortion:
 else:
     print("No cognitive distortion identified.")
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    """Log user in"""
-
-    # Forget any user_id
-    session.clear()
-
-    # User reached route via POST (as by submitting a form via POST)
-    if request.method == "POST":
-
-        # Ensure username was submitted
-        username = request.form.get("username")
-        password = request.form.get("password")
-
-        if not username:
-            return apology("must provide username", 403)
-        if not password:
-            return apology("must provide password", 403)
-
-        # Query database for username and password
-        db.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
-        user = db.fetchone()
-
-        # Ensure username exists and password is correct
-        if user:
-            # Remember which user has logged in
-            session["user_id"] = user[0]
-
-            # Redirect user to home page
-            return redirect("/")
-        else:
-            return apology("invalid username and/or password", 403)
-
-    # User reached route via GET
-    else:
-        return render_template("login.html")
-
-def apology(message, code=400):
-    """Render an apology page with a given message and HTTP status code."""
-    return render_template("apology.html", message=message), code
-
-
-@app.route("/logout")
-def logout():
-    """Log user out"""
-    # Forget any user_id
-    session.clear()
-
-    # Flash a message to let the user know they are logged out
-    flash("You have successfully logged out.")
-
-    # Redirect user to login form
-    return redirect("/")
-
 @app.route("/", methods=['GET', 'POST'])
 def index():
     thought = None
@@ -216,7 +158,6 @@ def index():
             result = None
 
     return render_template('index.html', result=result, thought=thought, daily_tip=daily_tip)
-
 
 if __name__ == "__main__":
     app.run(debug=True)
