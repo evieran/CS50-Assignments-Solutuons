@@ -52,10 +52,10 @@ daily_tips = [
     "Remember, thoughts are not always facts.",
     "Challenge your negative thoughts with evidence.",
     "Remember to be kind to yourself today.",
-    "You don’t have to be perfect to be amazing.",
-    "Don’t ruin a good today by thinking about a bad yesterday.",
+    "You don't have to be perfect to be amazing.",
+    "Don't ruin a good today by thinking about a bad yesterday.",
     "You have the power to change your thoughts, and your thoughts have the power to change your life.",
-    "Don’t be pushed around by your problems. Be led by your dreams.",
+    "Don't be pushed around by your problems. Be led by your dreams.",
     "Take time to do what makes your soul happy.",
     "Believe in yourself and you will be unstoppable.",
 ]
