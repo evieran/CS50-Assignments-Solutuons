@@ -39,18 +39,75 @@ cognitive_distortions = {
         "explanation": "Believing that other people must change in order for you to be happy.",
         "reframe": "Focus on what you can control and change within yourself to improve your well-being."
     }
-    
+
 
 # For tracking progress
 user_progress = {}
 
 def identify_distortion(thought):
     # Logic for identifying distortion
-    # Example:
+
+    # Overgeneralization
     if "always" in thought or "never" in thought:
+        user_progress["overgeneralization"] = user_progress.get("overgeneralization", 0) + 1
         return "overgeneralization"
-    # Add other conditions
+
+    # Black and White Thinking
+    if "all or nothing" in thought or "either or" in thought:
+        user_progress["black_and_white"] = user_progress.get("black_and_white", 0) + 1
+        return "black_and_white"
+
+    # Filtering
+    if "only the bad" in thought or "ignoring the good" in thought:
+        user_progress["filtering"] = user_progress.get("filtering", 0) + 1
+        return "filtering"
+
+    # Catastrophizing
+    if "worst-case scenario" in thought or "it's the end" in thought:
+        user_progress["catastrophizing"] = user_progress.get("catastrophizing", 0) + 1
+        return "catastrophizing"
+
+    # Personalization
+    if "my fault" in thought or "because of me" in thought:
+        user_progress["personalization"] = user_progress.get("personalization", 0) + 1
+        return "personalization"
+
+    # Mind Reading
+    if "they think" in thought or "he must think" in thought:
+        user_progress["mind_reading"] = user_progress.get("mind_reading", 0) + 1
+        return "mind_reading"
+
+    # Emotional Reasoning
+    if "I feel it, so it must be true" in thought:
+        user_progress["emotional_reasoning"] = user_progress.get("emotional_reasoning", 0) + 1
+        return "emotional_reasoning"
+
+    # Should Statements
+    if "I should" in thought or "they should" in thought:
+        user_progress["should_statements"] = user_progress.get("should_statements", 0) + 1
+        return "should_statements"
+
+    # Labeling
+    if "I am a" in thought and ("loser" in thought or "failure" in thought):
+        user_progress["labeling"] = user_progress.get("labeling", 0) + 1
+        return "labeling"
+
+    # Fallacy of Change
+    if "they must change" in thought or "if only they" in thought:
+        user_progress["fallacy_of_change"] = user_progress.get("fallacy_of_change", 0) + 1
+        return "fallacy_of_change"
+
+    # If no distortion is identified
     return None
+
+# Example usage:
+thought = "I always fail in everything I try"
+distortion = identify_distortion(thought)
+if distortion:
+    print(f"The thought exhibits {distortion} cognitive distortion.")
+else:
+    print("No cognitive distortion identified.")
+    
 
 def main():
     print("Welcome to the Cognitive Distortion Identification Chatbot!")
