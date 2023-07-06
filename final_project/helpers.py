@@ -57,4 +57,3 @@ def lookup(symbol):
         }
     except (KeyError, TypeError, ValueError):
         return None
-
