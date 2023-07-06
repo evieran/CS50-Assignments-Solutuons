@@ -11,6 +11,17 @@
 
 <body>
     <div class="container mt-5">
+         <!-- Flash message block -->
+         {% with messages = get_flashed_messages() %}
+         {% if messages %}
+             <ul class="flashes">
+                 {% for message in messages %}
+                     <li>{{ message }}</li>
+                 {% endfor %}
+             </ul>
+         {% endif %}
+     {% endwith %}
+
         <h1 class="text-center">Cognitive Distortion Identifier</h1>
         <p class="text-center">This tool helps to identify cognitive distortions in your thoughts. Cognitive distortions are irrational thought patterns that can contribute to mental health issues such as anxiety and depression.</p>
 
