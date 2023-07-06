@@ -39,20 +39,17 @@ flask run
 
 6. Access the application in your web browser at http://127.0.0.1:5000.
 
-# How to Use
-1. Register & Login: If you are a new user, register for an account and then login.
+## How to Use
+1. **Registration and Login**: Register for a new account and log in.
+2. **Enter Your Thoughts**: Type your thoughts or statements in the text input area.
+3. **Identify Distortions**: The application analyzes your input to identify cognitive distortions.
+4. **Read Explanation and Reframe Suggestions**: If a cognitive distortion is identified, you’ll receive an explanation of the distortion and suggestions on how to reframe it.
+5. **Engage with Daily Tips and Challenges**: View daily tips and participate in the challenge of the day.
+6. **Track Your Progress**: The application keeps track of the types of distortions you encounter, allowing you to observe patterns in your thought process over time.
+7. **Continuous Improvement**: Use the insights gained to improve your thought patterns and mental well-being.
 
-2. Enter a Thought: On the main page, enter a thought or statement into the text box.
-
-3. Identify Distortion: Click on "Identify Distortion". If a cognitive distortion is identified in the input thought, you will receive an explanation and information about the cognitive distortion.
-
-4. Reframing Suggestions: The application will also suggest more rational ways to think about the situation.
-
-6. Daily Tips: Pay attention to the daily tips provided for encouragement and personal growth.
-
-7. Track Your Progress: The application also keeps track of the types of distortions you encounter frequently and records them. This will allow you to observe patterns and trends in your thought process over time, which can be incredibly insightful.
-
-8. Challenge of the Day: Click on the "Challenge of the Day" button to receive a random challenge to engage in positive actions and thoughts.
+## Design Choices
+The application employs Flask for its simplicity and ease of use. User authentication was implemented to create a personalized experience for each user. The cognitive distortion identification logic is based on keyword analysis. This approach was chosen for its simplicity as a proof of concept, although more sophisticated natural language processing techniques could be employed for greater accuracy in a future version of the application.
 
 ## About CS50
 CS50 is a openware course from Havard University and taught by David J. Malan
@@ -63,8 +60,6 @@ Thank you for all CS50.
 
 - Where I get CS50 course?
 https://cs50.harvard.edu/x/2020/
-
-[LinkedIn Felipe Nieto](https://www.linkedin.com/in/felipe-antonio-nieto-curcio-9b865116a/)
 
 ## Acknowledgements
 Flask Web Framework
