@@ -111,11 +111,8 @@ if distortion:
 else:
     print("No cognitive distortion identified.")
 
-@app.route("/", methods=['GET'])
-def index():
-    return render_template('index.html', result=None)
 
-@app.route("/identify", methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def index():
     thought = None
     result = None
