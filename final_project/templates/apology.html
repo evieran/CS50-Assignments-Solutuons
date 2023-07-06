@@ -4,7 +4,10 @@
     Apology
 {% endblock %}
 
-{% block main %}
-    <!-- https://memegen.link/ -->
-    <img alt="{{ top }}" class="border img-fluid" src="http://memegen.link/custom/{{ top | urlencode }}/{{ bottom | urlencode }}.jpg?alt=https://i.imgur.com/CsCgN7Ll.png&width=400" title="{{ top }}">
+{% block content %}
+    <h1 class="text-center">Apology</h1>
+
+    <div class="alert alert-danger" role="alert">
+        {{ apology_message }}
+    </div>
 {% endblock %}
