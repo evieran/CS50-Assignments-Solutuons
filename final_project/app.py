@@ -137,5 +137,16 @@ def main():
         # Show progress if needed
         print("Progress so far:", user_progress[user_name])
 
+@app.route("/", methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        # Get thought from form
+        thought = request.form.get('thought')
+        # Identify cognitive distortion
+        result = identify_distortion(thought)
+        # Return results
+        return render_template('index.html', result=result)
+    return render_template('index.html', result=None)
+
 if __name__ == "__main__":
-    main()
+    app.run(debug=True)
