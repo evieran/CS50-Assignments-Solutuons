@@ -114,14 +114,23 @@ else:
 
 @app.route("/identify", methods=['GET', 'POST'])
 def index():
+    thought = None
+    result = None
     if request.method == 'POST':
         # Get thought from form
         thought = request.form.get('thought')
         # Identify cognitive distortion
-        result = identify_distortion(thought)
-        # Return results
-        return render_template('index.html', result=result, cognitive_distortions=cognitive_distortions)
-    return render_template('index.html', result=None, cognitive_distortions=cognitive_distortions)
+        distortion = identify_distortion(thought)
+        if distortion:
+            result = {
+                'distortion': distortion,
+                'explanation': cognitive_distortions[distortion]["explanation"],
+                'reframe': cognitive_distortions[distortion]["reframe"]
+            }
+        else:
+            result = None
+
+    return render_template('index.html', result=result, thought=thought)
 
 if __name__ == "__main__":
     app.run(debug=True)
