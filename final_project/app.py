@@ -67,9 +67,6 @@ def get_daily_tip():
     random.seed(day_of_year)
     return random.choice(daily_tips)
 
-# Dummy user data (In a real application, this data should be stored securely in a database)
-users = {"username": "password"}
-
 # For tracking progress
 user_progress = {}
 
