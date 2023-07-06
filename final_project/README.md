@@ -5,29 +5,15 @@
 Cognitive Distortion Identifier is a web application designed to help individuals identify and understand cognitive distortions in their thoughts. Cognitive distortions are irrational thought patterns that contribute to anxiety, depression, and other mental health issues. Through this application, users can gain insights into their thinking patterns and receive suggestions to reframe their thoughts.
 
 # Features
-## User Registration and Authentication:
-New users can register for an account and login to use the application.
+## Features
+- **User Registration and Authentication**: New users can register for an account and login to use the application.
+- **Thought Input**: Users can input their thoughts or statements.
+- **Distortion Identification**: The application analyzes the thoughts to identify common cognitive distortions such as “black-and-white thinking”, “overgeneralization”, or “catastrophizing”.
+- **Explanation and Education**: Upon identifying a cognitive distortion, the application provides an explanation and information on its negative impact on emotions or behavior.
+- **Reframing Suggestions**: The application suggests more balanced or rational ways to think about situations.
+- **Daily Tips and Challenges**: The application presents daily tips and challenges for personal growth and positive thinking.
+- **Progress Tracking**: The application tracks and records the types of cognitive distortions encountered, allowing users to observe patterns in their thinking over time.
 
-## Thought Input:
-Users can input their thoughts or statements.
-
-## Distortion Identification:
-The application analyzes the thoughts and identifies common cognitive distortions such as “black-and-white thinking”, “overgeneralization”, or “catastrophizing”.
-
-## Explanation and Education:
-When a cognitive distortion is identified, the application provides an explanation and information on how it might negatively affect emotions or behavior.
-
-## Reframing Suggestions:
-Suggests more balanced or rational ways to think about situations.
-
-## User Progress Tracking:
-The Cognitive Distortion Identifier also keeps track of the types of distortions you frequently encounter, and records them. This allows you to observe patterns and trends over time, which is incredibly insightful.
-
-## Daily Tips:
-Users receive daily affirmations and positive reinforcement to encourage personal growth and development.
-
-## Challenge of the Day:
-Each time users visit the main page, they can receive a random challenge designed to motivate positive actions and thoughts.
 
 # Getting Started
 ## Prerequisites
