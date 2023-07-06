@@ -26,8 +26,9 @@
         <div class="mt-5" id="results">
             <!-- This is where the results from the chatbot will be displayed -->
             {% if result %}
-                <h3>Result:</h3>
-                <p>{{ result }}</p>
+                <h3>Distortion Identified: {{ result }}</h3>
+                <p><strong>Explanation:</strong> {{ cognitive_distortions[result]["explanation"] }}</p>
+                <p><strong>Reframe Suggestion:</strong> {{ cognitive_distortions[result]["reframe"] }}</p>
             {% endif %}
         </div>
     </div>
