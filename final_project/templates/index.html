@@ -12,7 +12,7 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Cognitive Distortion Identifier</h1>
-        <p class="text-center">Enter your thought and let the chatbot help identify any cognitive distortions.</p>
+        <p class="text-center">This tool helps to identify cognitive distortions in your thoughts. Cognitive distortions are irrational thought patterns that can contribute to mental health issues such as anxiety and depression.</p>
 
         <form action="/identify" method="post" class="mt-5">
             <div class="form-group">
@@ -24,11 +24,15 @@
         </form>
 
         <div class="mt-5" id="results">
-            <!-- This is where the results from the chatbot will be displayed -->
+            <!-- Customized Feedback -->
             {% if result %}
-                <h3>Distortion Identified: {{ result }}</h3>
-                <p><strong>Explanation:</strong> {{ cognitive_distortions[result]["explanation"] }}</p>
-                <p><strong>Reframe Suggestion:</strong> {{ cognitive_distortions[result]["reframe"] }}</p>
+                <h3>Result:</h3>
+                <p>In the thought: "{{ thought }}", we identified the cognitive distortion: {{ result['distortion'] }}.</p>
+                <p>Explanation: {{ result['explanation'] }}</p>
+                <p>Suggestion to reframe: {{ result['reframe'] }}</p>
+            {% elif result == None and thought %}
+                <!-- Error Handling -->
+                <p>We could not identify any cognitive distortion in the thought: "{{ thought }}". Please try different input.</p>
             {% endif %}
         </div>
     </div>
