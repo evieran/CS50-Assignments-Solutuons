@@ -169,6 +169,10 @@ def login():
     else:
         return render_template("login.html")
 
+def apology(message, code=400):
+    """Render an apology page with a given message and HTTP status code."""
+    return render_template("apology.html", message=message), code
+
 
 @app.route("/logout")
 def logout():
