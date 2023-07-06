@@ -112,31 +112,6 @@ else:
     print("No cognitive distortion identified.")
 
 
-def main():
-    print("Welcome to the Cognitive Distortion Identification Chatbot!")
-
-    user_name = input("What's your name? ")
-    if user_name not in user_progress:
-        user_progress[user_name] = {}
-
-    while True:
-        thought = input("Enter a thought or type 'exit' to quit: ")
-        if thought == 'exit':
-            break
-
-        distortion = identify_distortion(thought)
-        if distortion:
-            print("Distortion Identified:", distortion)
-            print("Explanation:", cognitive_distortions[distortion]["explanation"])
-            print("Reframe Suggestion:", cognitive_distortions[distortion]["reframe"])
-            # Track progress
-            user_progress[user_name][distortion] = user_progress[user_name].get(distortion, 0) + 1
-        else:
-            print("No cognitive distortion identified.")
-
-        # Show progress if needed
-        print("Progress so far:", user_progress[user_name])
-
 @app.route("/identify", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
