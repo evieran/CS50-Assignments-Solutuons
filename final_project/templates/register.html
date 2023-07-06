@@ -1,22 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Register</title>
-</head>
-<body>
-    <form action="/register" method="post">
-        <div>
-            <input name="username" type="text" placeholder="Username">
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Register</h1>
+
+    <form action="/register" method="post" class="mt-5">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" name="username" required>
         </div>
-        <div>
-            <input name="password" type="password" placeholder="Password">
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
         </div>
-        <div>
-            <input name="confirmation" type="password" placeholder="Confirm Password">
+
+        <div class="form-group">
+            <label for="confirmation">Confirm Password:</label>
+            <input type="password" class="form-control" id="confirmation" name="confirmation" required>
         </div>
-        <div>
-            <button type="submit">Register</button>
-        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}
