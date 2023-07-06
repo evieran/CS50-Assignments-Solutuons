@@ -264,6 +264,10 @@ challenges = [
 ]
 
 # Function to get a random challenge
+def get_random_challenge():
+    return random.choice(challenges)
+
+# Function to get a random challenge
 @app.route("/get_challenge", methods=['GET'])
 @login_required
 def get_challenge():
