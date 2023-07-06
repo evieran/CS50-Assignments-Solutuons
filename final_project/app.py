@@ -1,7 +1,15 @@
+import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import datetime
 import random
 app = Flask(__name__)
+
+# Connect to the SQLite database
+conn = sqlite3.connect('database.db')
+db = conn.cursor()
+
+# Create a table to store users
+db.execute('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)')
 
 cognitive_distortions = {
     "black_and_white": {
