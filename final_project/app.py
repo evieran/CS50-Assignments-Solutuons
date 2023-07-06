@@ -1,24 +1,50 @@
-from flask import Flask, render_template, request, jsonify
+cognitive_distortions = {
+    "black_and_white": {
+        "explanation": "Seeing things as black-or-white, no middle ground.",
+        "reframe": "Try to see the spectrum in between extremes."
+    },
+    "overgeneralization": {
+        "explanation": "Making general interpretations from a single event.",
+        "reframe": "Consider that this event might not represent the whole picture."
+    },
+    # Add other cognitive distortions
+}
 
-app = Flask(__name__)
+# For tracking progress
+user_progress = {}
 
-@app.route("/")
-def home():
-    return render_template("index.html")
+def identify_distortion(thought):
+    # Logic for identifying distortion
+    # Example:
+    if "always" in thought or "never" in thought:
+        return "overgeneralization"
+    # Add other conditions
+    return None
 
-@app.route("/get-response", methods=["POST"])
-def get_response():
-    user_message = request.json.get("message")
+def main():
+    print("Welcome to the Cognitive Distortion Identification Chatbot!")
 
-    # Simple predefined responses
-    responses = {
-        "hello": "Hello! How can I help you?",
-        "bye": "Goodbye! Have a great day!",
-        "how are you": "I'm a bot, so I don't have feelings, but I'm here to help you!"
-    }
+    user_name = input("What's your name? ")
+    if user_name not in user_progress:
+        user_progress[user_name] = {}
 
-    # Return a response based on user input
-    return jsonify({"response": responses.get(user_message.lower(), "I don't understand.")})
+    while True:
+        thought = input("Enter a thought or type 'exit' to quit: ")
+        if thought == 'exit':
+            break
+
+        distortion = identify_distortion(thought)
+        if distortion:
+            print("Distortion Identified:", distortion)
+            print("Explanation:", cognitive_distortions[distortion]["explanation"])
+            print("Reframe Suggestion:", cognitive_distortions[distortion]["reframe"])
+            # Track progress
+            user_progress[user_name][distortion] = user_progress[user_name].get(distortion, 0) + 1
+        else:
+            print("No cognitive distortion identified.")
+
+        # Show progress if needed
+        print("Progress so far:", user_progress[user_name])
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    main()
