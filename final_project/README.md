@@ -54,12 +54,19 @@ flask run
 
 7. Challenge of the Day: Click on the "Challenge of the Day" button to receive a random challenge to engage in positive actions and thoughts.
 
-# Contributing
-Contributions are welcome! Please read the contributing guidelines before getting started.
 
-# License
-This project is licensed under the MIT License. See the LICENSE file for details.
+## About CS50
+CS50 is a openware course from Havard University and taught by David J. Malan
 
-# Acknowledgements
+Introduction to the intellectual enterprises of computer science and the art of programming. This course teaches students how to think algorithmically and solve problems efficiently. Topics include abstraction, algorithms, data structures, encapsulation, resource management, security, and software engineering. Languages include C, Python, and SQL plus students’ choice of: HTML, CSS, and JavaScript (for web development).
+
+Thank you for all CS50.
+
+- Where I get CS50 course?
+https://cs50.harvard.edu/x/2020/
+
+[LinkedIn Felipe Nieto](https://www.linkedin.com/in/felipe-antonio-nieto-curcio-9b865116a/)
+
+## Acknowledgements
 Flask Web Framework
 Bootstrap for styling
