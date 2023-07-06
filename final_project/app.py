@@ -160,18 +160,19 @@ def login():
         if not password:
             return apology("must provide password", 403)
 
-        # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = ?", username)
+        # Query database for username and password
+        db.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
+        user = db.fetchone()
 
         # Ensure username exists and password is correct
-        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], password):
+        if user:
+            # Remember which user has logged in
+            session["user_id"] = user[0]
+
+            # Redirect user to home page
+            return redirect("/")
+        else:
             return apology("invalid username and/or password", 403)
-
-        # Remember which user has logged in
-        session["user_id"] = rows[0]["id"]
-
-        # Redirect user to home page
-        return redirect("/")
 
     # User reached route via GET
     else:
