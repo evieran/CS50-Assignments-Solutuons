@@ -39,7 +39,7 @@ cognitive_distortions = {
         "explanation": "Believing that other people must change in order for you to be happy.",
         "reframe": "Focus on what you can control and change within yourself to improve your well-being."
     }
-}
+    
 
 # For tracking progress
 user_progress = {}
