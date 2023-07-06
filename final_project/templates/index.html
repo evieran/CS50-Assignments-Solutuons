@@ -24,15 +24,16 @@
         </form>
 
         <div class="mt-5" id="results">
-            <!-- Customized Feedback -->
+            <!-- This is where the results from the chatbot will be displayed -->
             {% if result %}
-                <h3>Result:</h3>
-                <p>In the thought: "{{ thought }}", we identified the cognitive distortion: {{ result['distortion'] }}.</p>
-                <p>Explanation: {{ result['explanation'] }}</p>
-                <p>Suggestion to reframe: {{ result['reframe'] }}</p>
-            {% elif result == None and thought %}
-                <!-- Error Handling -->
-                <p>We could not identify any cognitive distortion in the thought: "{{ thought }}". Please try different input.</p>
+                <h3>Your Thought:</h3>
+                <p>{{ thought }}</p>
+                <h3>Identified Distortion:</h3>
+                <p>{{ result.distortion }}</p>
+                <h3>Explanation:</h3>
+                <p>{{ result.explanation }}</p>
+                <h3>Reframe Suggestion:</h3>
+                <p>{{ result.reframe }}</p>
             {% endif %}
         </div>
     </div>
