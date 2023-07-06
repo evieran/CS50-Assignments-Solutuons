@@ -50,7 +50,7 @@
 
             <script>
                 document.getElementById('challenge-btn').addEventListener('click', function() {
-                    var challengeText = "{{ random_challenge }}";
+                    var challengeText = document.getElementById('challenge-btn').innerHTML;
                     alert(challengeText);
                 });
             </script>
