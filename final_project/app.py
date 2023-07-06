@@ -132,6 +132,8 @@ else:
 def index():
     thought = None
     result = None
+    daily_tip = get_daily_tip()
+
     if request.method == 'POST':
         # Get thought from form
         thought = request.form.get('thought')
@@ -146,7 +148,7 @@ def index():
         else:
             result = None
 
-    return render_template('index.html', result=result, thought=thought)
+    return render_template('index.html', result=result, thought=thought, daily_tip=daily_tip)
 
 if __name__ == "__main__":
     app.run(debug=True)
