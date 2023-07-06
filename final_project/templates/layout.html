@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Thought Analyzer</title>
+</head>
+
+<body>
+    <nav>
+        {% if session["user_id"] %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a> |
+            <a href="{{ url_for('register') }}">Register</a>
+        {% endif %}
+    </nav>
+    {% block content %} {% endblock %}
+</body>
+
+</html>
