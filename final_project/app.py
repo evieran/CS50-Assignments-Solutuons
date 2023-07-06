@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import datetime
 import random
 app = Flask(__name__)
@@ -175,6 +175,9 @@ def logout():
     """Log user out"""
     # Forget any user_id
     session.clear()
+
+    # Flash a message to let the user know they are logged out
+    flash("You have successfully logged out.")
 
     # Redirect user to login form
     return redirect("/")
