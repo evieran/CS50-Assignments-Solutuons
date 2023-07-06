@@ -250,6 +250,7 @@ else:
     print("No cognitive distortion identified.")
 
 @app.route("/", methods=['GET', 'POST'])
+@login_required
 def index():
     thought = None
     result = None
