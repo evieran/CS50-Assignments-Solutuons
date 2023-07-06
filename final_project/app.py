@@ -249,6 +249,19 @@ if distortion:
 else:
     print("No cognitive distortion identified.")
 
+# list of challenges
+challenge = [
+    "Today, try to write down 3 positive things that happened.",
+    "Challenge yourself to avoid using absolute words like 'always' or 'never' today.",
+    "Try to do something nice for someone else today, no matter how small.",
+    "Today, when you find yourself worrying about something, take 5 deep breaths before continuing.",
+    "Challenge yourself to engage in a hobby or activity that makes you happy today."
+]
+
+# Function to get a random challenge
+def get_random_challenge():
+    return random.choice(challenge)
+
 @app.route("/", methods=['GET', 'POST'])
 @login_required
 def index():
