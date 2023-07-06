@@ -1,4 +1,7 @@
 # Cognitive Distortion Identifier
+#### Video Demo:  <URL HERE>
+
+#### Description:
 Cognitive Distortion Identifier is a web application designed to help individuals identify and understand cognitive distortions in their thoughts. Cognitive distortions are irrational thought patterns that contribute to anxiety, depression, and other mental health issues. Through this application, users can gain insights into their thinking patterns and receive suggestions to reframe their thoughts.
 
 # Features
