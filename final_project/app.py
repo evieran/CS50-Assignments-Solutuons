@@ -29,6 +29,49 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    """Register user."""
+
+    # Forget any user_id
+    session.clear()
+
+    # User reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+
+        # Ensure username was submitted
+        if not request.form.get("username"):
+            return render_template("error.html", message="Must provide username")
+
+        # Ensure password was submitted
+        elif not request.form.get("password"):
+            return render_template("error.html", message="Must provide password")
+
+        # Ensure password and confirmation password are the same
+        elif request.form.get("password") != request.form.get("confirmation"):
+            return render_template("error.html", message="Passwords must match")
+
+        # Hash the user's password
+        hash_password = generate_password_hash(request.form.get("password"))
+
+        # Insert the new user into the database
+        result = db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)",
+                            username=request.form.get("username"), hash=hash_password)
+
+        # Check if the username already exists
+        if not result:
+            return render_template("error.html", message="Username already exists")
+
+        # Log the user in
+        session["user_id"] = result
+
+        # Redirect user to home page
+        return redirect(url_for("index"))
+
+    # User reached route via GET (as by clicking a link or via redirect)
+    else:
+        return render_template("register.html")
+
 cognitive_distortions = {
     "black_and_white": {
         "explanation": "Seeing things in only two categories (good or bad, success or failure) without acknowledging any spectrum in between.",
