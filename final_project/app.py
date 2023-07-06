@@ -1,3 +1,6 @@
+from flask import Flask, render_template, request, redirect, url_for
+app = Flask(__name__)
+
 cognitive_distortions = {
     "black_and_white": {
         "explanation": "Seeing things in only two categories (good or bad, success or failure) without acknowledging any spectrum in between.",
@@ -39,7 +42,7 @@ cognitive_distortions = {
         "explanation": "Believing that other people must change in order for you to be happy.",
         "reframe": "Focus on what you can control and change within yourself to improve your well-being."
     }
-
+}
 
 # For tracking progress
 user_progress = {}
@@ -107,7 +110,7 @@ if distortion:
     print(f"The thought exhibits {distortion} cognitive distortion.")
 else:
     print("No cognitive distortion identified.")
-    
+
 
 def main():
     print("Welcome to the Cognitive Distortion Identification Chatbot!")
