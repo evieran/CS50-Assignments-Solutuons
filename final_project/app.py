@@ -1,13 +1,44 @@
 cognitive_distortions = {
     "black_and_white": {
-        "explanation": "Seeing things as black-or-white, no middle ground.",
-        "reframe": "Try to see the spectrum in between extremes."
+        "explanation": "Seeing things in only two categories (good or bad, success or failure) without acknowledging any spectrum in between.",
+        "reframe": "Consider that things often lie on a spectrum rather than in absolutes."
     },
     "overgeneralization": {
-        "explanation": "Making general interpretations from a single event.",
-        "reframe": "Consider that this event might not represent the whole picture."
+        "explanation": "Making broad interpretations from a single or few events.",
+        "reframe": "Recognize that one event does not necessarily represent a consistent pattern."
     },
-    # Add other cognitive distortions
+    "filtering": {
+        "explanation": "Focusing on the negative details while ignoring all the positive aspects of a situation.",
+        "reframe": "Try to acknowledge and appreciate positive aspects, even in a negative situation."
+    },
+    "catastrophizing": {
+        "explanation": "Exaggerating the importance of insignificant events or mistakes.",
+        "reframe": "Ask yourself if the issue will matter in the long term and weigh its actual impact."
+    },
+    "personalization": {
+        "explanation": "Believing that you are the sole cause of every negative event.",
+        "reframe": "Understand that not everything is under your control and multiple factors contribute to outcomes."
+    },
+    "mind_reading": {
+        "explanation": "Assuming you know what others are thinking, usually thinking they think negatively of you.",
+        "reframe": "Recognize that you cannot read minds and avoid making assumptions without evidence."
+    },
+    "emotional_reasoning": {
+        "explanation": "Believing that your emotions are an accurate reflection of reality.",
+        "reframe": "Acknowledge that emotions can sometimes be based on irrational thoughts or biases."
+    },
+    "should_statements": {
+        "explanation": "Having a rigid view of how you or others should behave and getting upset if these rules are not followed.",
+        "reframe": "Recognize that people are fallible and that it's more realistic to have preferences rather than rigid expectations."
+    },
+    "labeling": {
+        "explanation": "Assigning global negative traits to yourself and others.",
+        "reframe": "Try to view people as complex beings with multiple traits rather than labeling them solely based on specific behaviors."
+    },
+    "fallacy_of_change": {
+        "explanation": "Believing that other people must change in order for you to be happy.",
+        "reframe": "Focus on what you can control and change within yourself to improve your well-being."
+    }
 }
 
 # For tracking progress
