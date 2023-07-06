@@ -23,6 +23,10 @@
             <button type="submit" class="btn btn-primary">Identify Distortion</button>
         </form>
 
+        <div class="alert alert-info" role="alert">
+            <strong>Tip of the Day:</strong> {{ daily_tip }}
+        </div>
+
         <div class="mt-5" id="results">
             <!-- This is where the results from the chatbot will be displayed -->
             {% if result %}
