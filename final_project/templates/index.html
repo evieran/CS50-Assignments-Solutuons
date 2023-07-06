@@ -14,33 +14,38 @@
         <h1 class="text-center">Cognitive Distortion Identifier</h1>
         <p class="text-center text-primary">This tool helps to identify cognitive distortions in your thoughts. Cognitive distortions are irrational thought patterns that can contribute to mental health issues such as anxiety and depression.</p>
 
-        <div class="alert alert-info mb-4" role="alert"> <!-- Added mb-4 for margin-bottom -->
+        <div class="alert alert-info mt-4" role="alert">
             <strong>Tip of the Day:</strong> {{ daily_tip }}
         </div>
 
-        <form action="/" method="post" class="mt-5">
+        <form action="/" method="post" class="mt-4">
             <div class="form-group">
                 <label for="thought">Your Thought:</label>
                 <input type="text" class="form-control" id="thought" name="thought" required>
             </div>
 
-            <!-- Added inline style for purple button -->
             <button type="submit" class="btn" style="background-color: purple; color: white;">Identify Distortion</button>
         </form>
 
         <div class="mt-5" id="results">
             <!-- Customized Feedback -->
             {% if result %}
-                <h3>Result:</h3>
-                <p>In the thought: "{{ thought }}", we identified the cognitive distortion: {{ result['distortion'] }}.</p>
-                <p>Explanation: {{ result['explanation'] }}</p>
-                <p>Suggestion to reframe: {{ result['reframe'] }}</p>
+                <div class="card border-primary mb-3">
+                    <div class="card-header">Result</div>
+                    <div class="card-body">
+                        <h4 class="card-title">In the thought: "{{ thought }}"</h4>
+                        <p class="card-text">We identified the cognitive distortion: <strong>{{ result['distortion'] }}</strong>.</p>
+                        <p class="card-text"><strong style="color: darkpurple;">Explanation:</strong> {{ result['explanation'] }}</p>
+                        <p class="card-text"><strong style="color: darkpurple;">Suggestion to reframe:</strong> {{ result['reframe'] }}</p>
+                    </div>
+                </div>
             {% elif result == None and thought %}
                 <!-- Error Handling -->
-                <p>We could not identify any cognitive distortion in the thought: "{{ thought }}". Please try different input.</p>
+                <div class="alert alert-warning" role="alert">
+                    We could not identify any cognitive distortion in the thought: "{{ thought }}". Please try different input.
+                </div>
             {% endif %}
         </div>
-    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
