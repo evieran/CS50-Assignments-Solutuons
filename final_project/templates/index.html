@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Distortion Identifier</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Cognitive Distortion Identifier</h1>
+        <p class="text-center">Enter your thought and let the chatbot help identify any cognitive distortions.</p>
+
+        <form action="/identify" method="post" class="mt-5">
+            <div class="form-group">
+                <label for="thought">Your Thought:</label>
+                <input type="text" class="form-control" id="thought" name="thought" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Identify Distortion</button>
+        </form>
+
+        <div class="mt-5" id="results">
+            <!-- This is where the results from the chatbot will be displayed -->
+            {% if result %}
+                <h3>Result:</h3>
+                <p>{{ result }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
