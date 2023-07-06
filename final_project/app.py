@@ -195,7 +195,6 @@ def logout():
     # Redirect user to login form
     return redirect("/")
 
-
 @app.route("/", methods=['GET', 'POST'])
 def index():
     thought = None
@@ -217,6 +216,7 @@ def index():
             result = None
 
     return render_template('index.html', result=result, thought=thought, daily_tip=daily_tip)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
