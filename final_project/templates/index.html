@@ -49,15 +49,15 @@
             <button type="button" id="challenge-btn" class="btn btn-warning mt-3">Confront Your Fear</button>
         </div>
 
-     <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                document.getElementById('challenge-btn').addEventListener('click', function() {
-                    // Perform some action when the button is clicked
-                    // For example, you can display an alert with the challenge text
-                    var challengeText = "{{ challenge }}";
-                    alert(challengeText);
-                });
-            });
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('challenge-btn').addEventListener('click', function() {
+            // Perform some action when the button is clicked
+            // For example, you can display an alert with a random challenge text
+            var challengeText = "{{ get_random_challenge() }}";
+            alert(challengeText);
+        });
+    });
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
