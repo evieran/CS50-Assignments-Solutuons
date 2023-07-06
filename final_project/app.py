@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
+import datetime
+import random
 app = Flask(__name__)
 
 cognitive_distortions = {
