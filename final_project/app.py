@@ -46,6 +46,20 @@ cognitive_distortions = {
     }
 }
 
+# This can be a list of tips or quotes
+daily_tips = [
+    "Take deep breaths to help alleviate stress.",
+    "Remember, thoughts are not always facts.",
+    "Challenge your negative thoughts with evidence.",
+    # add more...
+]
+
+# Function to get the tip of the day
+def get_daily_tip():
+    day_of_year = datetime.datetime.now().timetuple().tm_yday
+    random.seed(day_of_year)
+    return random.choice(daily_tips)
+
 # For tracking progress
 user_progress = {}
 
