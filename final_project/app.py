@@ -250,17 +250,22 @@ else:
     print("No cognitive distortion identified.")
 
 # list of challenges
-challenge = [
+challenges = [
     "Today, try to write down 3 positive things that happened.",
     "Challenge yourself to avoid using absolute words like 'always' or 'never' today.",
     "Try to do something nice for someone else today, no matter how small.",
     "Today, when you find yourself worrying about something, take 5 deep breaths before continuing.",
-    "Challenge yourself to engage in a hobby or activity that makes you happy today."
+    "Challenge yourself to engage in a hobby or activity that makes you happy today.",
+    "Take a break from social media for the day and focus on real-life interactions.",
+    "Practice mindfulness by spending 10 minutes in quiet meditation or reflection.",
+    "Set a goal for yourself and take a small step toward achieving it today.",
+    "Challenge negative self-talk by replacing it with positive affirmations.",
+    "Express gratitude by writing a thank-you note or telling someone you appreciate them."
 ]
 
 # Function to get a random challenge
 def get_random_challenge():
-    return random.choice(challenge)
+    return random.choice(challenges)
 
 @app.route("/", methods=['GET', 'POST'])
 @login_required
@@ -268,6 +273,8 @@ def index():
     thought = None
     result = None
     daily_tip = get_daily_tip()
+    random_challenge = get_random_challenge()
+
 
     if request.method == 'POST':
         # Get thought from form
@@ -282,10 +289,8 @@ def index():
             }
         else:
             result = None
-            
-    random_challenge = get_random_challenge()  # Get a random challenge
 
-    return render_template('index.html', result=result, thought=thought, daily_tip=daily_tip, challenge=challenge)
+    return render_template('index.html', result=result, thought=thought, daily_tip=daily_tip, random_challenge=random_challenge)
 
 if __name__ == "__main__":
     app.run(debug=True)
