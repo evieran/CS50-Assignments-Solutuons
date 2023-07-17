@@ -1,6 +1,8 @@
-import json
-import os
 from deep_translator import MyMemoryTranslator
+
+"""
+This module provides translation functions for English and French.
+"""
 
 def english_to_french(text):
     """
