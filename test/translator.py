@@ -7,6 +7,10 @@ from deep_translator import MyMemoryTranslator
 
 app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return "Welcome to my website!"
+
 @app.route('/translate/english_to_french', methods=['POST'])
 def english_to_french():
     """
@@ -38,4 +42,3 @@ def french_to_english():
     except Exception as err:
         print(f"An error occurred: {err}")
         return jsonify({'error': str(err)}), 500
-    
