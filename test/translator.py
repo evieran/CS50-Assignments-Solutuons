@@ -1,8 +1,8 @@
-from deep_translator import MyMemoryTranslator
-
 """
 This module provides translation functions for English and French.
 """
+
+from deep_translator import MyMemoryTranslator
 
 def english_to_french(text):
     """
