@@ -17,7 +17,7 @@ def english_to_french(text):
     try:
         translator = MyMemoryTranslator(source='english', target='french')
         return translator.translate(text)
-    except Exception as e:
+    except Exception as err:
         print(f"An error occurred: {err}")
         return None
 
@@ -34,6 +34,6 @@ def french_to_english(text):
     try:
         translator = MyMemoryTranslator(source='french', target='english')
         return translator.translate(text)
-    except Exception as e:
+    except Exception as err:
         print(f"An error occurred: {err}")
         return None
