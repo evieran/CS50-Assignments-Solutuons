@@ -2,41 +2,40 @@
 This module provides translation functions for English and French.
 """
 
+from flask import Flask, request, jsonify
 from deep_translator import MyMemoryTranslator
 
-@app.route('/translate', methods=['POST'])
-def translate()
+app = Flask(__name__)
 
-def english_to_french(text):
+@app.route('/translate/english_to_french', methods=['POST'])
+def english_to_french():
     """
     Translate English text to French.
-
-    Parameters:
-    text (str): English text to translate
 
     Returns:
     str: Translated French text
     """
+    text = request.json.get('text', '')
     try:
         translator = MyMemoryTranslator(source='english', target='french')
-        return translator.translate(text)
+        return jsonify({'translation': translator.translate(text)})
     except Exception as err:
         print(f"An error occurred: {err}")
-        return None
+        return jsonify({'error': str(err)}), 500
 
-def french_to_english(text):
+@app.route('/translate/french_to_english', methods=['POST'])
+def french_to_english():
     """
     Translate French text to English.
-
-    Parameters:
-    text (str): French text to translate
 
     Returns:
     str: Translated English text
     """
+    text = request.json.get('text', '')
     try:
         translator = MyMemoryTranslator(source='french', target='english')
-        return translator.translate(text)
+        return jsonify({'translation': translator.translate(text)})
     except Exception as err:
         print(f"An error occurred: {err}")
-        return None
+        return jsonify({'error': str(err)}), 500
+    
