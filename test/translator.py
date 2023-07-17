@@ -4,6 +4,9 @@ This module provides translation functions for English and French.
 
 from deep_translator import MyMemoryTranslator
 
+@app.route('/translate', methods=['POST'])
+def translate()
+
 def english_to_french(text):
     """
     Translate English text to French.
